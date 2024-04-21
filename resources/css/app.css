@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'Anton';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/public/assets/fonts/Anton-Regular.ttf');
+}
+
+html {
+    font-family: 'Anton', sans-serif;
+}
+
+.line-through-custom {
+    text-decoration-line: line-through;
+    text-decoration-color: var(--tw-text-decoration-color);
+}
+  
+.text-decoration-red:hover {
+    text-decoration-line: line-through;
+    text-decoration-color: red;
+    text-decoration-thickness: 3px;
+    transform: rotate(-45deg);
+} 
