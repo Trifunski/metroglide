@@ -1,55 +1,60 @@
-import APIHandler from "../api/apiHandler";
+import APIHandler from "../api/apiHandler.js";
 
 class Cart {
-    
-    constructor() {
-        this.api = new APIHandler('/api');
+    constructor()  {
+        this.api = new APIHandler('');
     }
 
-    async fetchCart() {
-        return await this.api.fetchCart();
+    async addToCart(sneakerId, sizeId) {
+        try {
+            await this.api.addToCart(sneakerId, sizeId);
+            alert('Item added to cart.');
+        } catch (error) {
+            console.error('Error adding item to cart:', error.message);
+            alert('Failed to add item to cart.');
+        }
     }
 
-    async fetchSneakerDetails(id) {
-        return await this.api.fetchSneakerDetails(id);
+    async removeFromCart(sneakerId, sizeId) {
+        try {
+            await this.api.removeFromCart(sneakerId, sizeId);
+            alert('Item removed from cart.');
+        } catch (error) {
+            console.error('Error removing item from cart:', error.message);
+            alert('Failed to remove item from cart.');
+        }
     }
 
-    async fetchSizes(id) {
-        return await this.api.fetchSizes(id);
+    async loadCart() {
+        try {
+            const cart = await this.api.fetchCart();
+            this.render(cart);
+        } catch (error) {
+            console.error('Error loading cart:', error.message);
+            alert('Failed to load cart.');
+        }
     }
 
-    async fetchBrands() {
-        return await this.api.fetchBrands();
-    }
+    render(cart) {
+        console.log(cart);
+        const cartList = document.getElementById('cartList');
 
-    async fetchSneakers(brandId = '') {
-        return await this.api.fetchSneakers(brandId);
-    }
+        const cartItems = cart.map(item => `
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                <div>
+                    <h6 class="my-0">${item.Sneaker_Name}</h6>
+                    <small class="text-muted">${item.Size_Value}</small>
+                </div>
+                <span class="text-muted">$${item.Sneaker_Price}</span>
+            </li>
+        `).join('');
 
-    async addToCart(sneakerId, size) {
-        return await this.api.fetch('/cart', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ sneakerId, size })
-        });
-    }
+        cartList.innerHTML = cartItems;
 
-    async removeFromCart(sneakerId, size) {
-        return await this.api.fetch('/cart', {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ sneakerId, size })
-        });
-    }
+        const totalPrice = cart.reduce((total, item) => total + item.Sneaker_Price, 0);
+        const cartTotal = document.getElementById('cartTotal');
+        cartTotal.textContent = `$${totalPrice}`;
 
-    async checkout() {
-        return await this.api.fetch('cart/checkout', {
-            method: 'POST'
-        });
     }
 
 }

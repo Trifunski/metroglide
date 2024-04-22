@@ -15,12 +15,6 @@
 
     <section class="text-white body-font overflow-hidden">
 
-        <span class="hidden" id="userToken">
-            @if (session()->has('token'))
-                {{ session()->get('token') }}
-            @endif
-        </span>
-
         <div class="container px-5 py-24 mx-auto">
             <div class="lg:w-4/5 mx-auto flex justify-between">
             <img id="sneakerImage" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="">
@@ -47,7 +41,7 @@
 
                     @if (session()->has('token'))
                         @if (strtotime(session()->get('token_expired_at')) > strtotime(date('Y-m-d H:i:s')))
-                            <button id="addCartButton" class="bg-white font-semibold text-black px-4 py-2 rounded-md hover:bg-black hover:text-white hover:ring hover:ring-white transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2">
+                            <button id="addToCart" class="bg-white font-semibold text-black px-4 py-2 rounded-md hover:bg-black hover:text-white hover:ring hover:ring-white transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2">
                                 Add Cart
                             </button>
                         @else

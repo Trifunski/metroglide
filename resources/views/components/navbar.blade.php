@@ -40,28 +40,3 @@
     </div>
 </nav>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        updateCartCount();
-
-        function updateCartCount() {
-            const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            let totalCount = 0;
-
-            // Sumar la cantidad de cada ítem en el carrito
-            cart.forEach(item => {
-                totalCount += item.quantity;
-            });
-
-            // Mostrar el total en el icono del carrito
-            const cartCountElement = document.getElementById('cart-count');
-            if (totalCount > 0) {
-                cartCountElement.textContent = totalCount;
-                cartCountElement.classList.remove('hidden');
-            } else {
-                cartCountElement.classList.add('hidden');
-            }
-        }
-    });
-</script>
-

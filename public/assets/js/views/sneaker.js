@@ -12,11 +12,9 @@ document.addEventListener("DOMContentLoaded", function() {
         sneakerDetails.loadSneaker(sneakerId);
     }
 
-    document.getElementById('addCartButton').addEventListener('click', function() {
+    document.getElementById('addToCart').addEventListener('click', async function() {
         const sizeId = document.getElementById('sizeList').value;
-        const token = document.getElementById('userToken').innerText.trim();
-        cart.addToCart(sneakerId, sizeId, token);
-        location.reload();
+        await cart.addToCart(sneakerId, sizeId);
     });
 
 });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Cart;
 use App\Models\Token;
 
 class AuthController extends Controller
@@ -46,6 +47,13 @@ class AuthController extends Controller
     public function logout()
     {
         session()->forget(['token', 'token_expired_at']);
+
+        $cart = Cart::getCart();
+
+        dd($cart);
+
+        Cart::saveCartToDatabase($cart);
+
         return redirect()->back()->with('message', 'Logout success');
     }
 }

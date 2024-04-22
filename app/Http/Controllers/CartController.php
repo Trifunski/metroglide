@@ -4,40 +4,62 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cart;
+use Illuminate\Support\Facades\Log;
 
 class CartController extends Controller
 {
     
-    public function index()
+    public function getCart(Request $request)
     {
-        $cart = new Cart;
-        $cart_items = $cart->getCart(1);
-        return view('cart', ['cart_items' => $cart_items]);
+        $cart = Cart::getCart();
+        
+        return response()->json($cart);
     }
 
-    public function add(Request $request)
+    public function addCart(Request $request)
     {
-        $cart = new Cart;
-        $cart->addToCart(1, $request->product_id, $request->quantity);
-        return redirect()->route('cart');
+        $sneaker_id = $request->input('sneakerId');
+        $user_id = session()->get('user_id');
+        $quantity = $request->input('quantity');
+        $size_id = $request->input('sizeId');
+        
+        Cart::addCart($sneaker_id, $user_id, $size_id, $quantity);
+        
+        return response()->json([
+            'message' => 'Product added to cart'
+        ]);
     }
 
-    public function update(Request $request)
+    public function updateCart(Request $request)
     {
-        Cart::updateCart(1, $request->product_id, $request->quantity);
-        return redirect()->route('cart');
+        $sneaker_id = $request->input('sneaker_id');
+        $quantity = $request->input('quantity');
+        
+        Cart::updateCart($sneaker_id, $quantity);
+        
+        return response()->json([
+            'message' => 'Cart updated'
+        ]);
+    }
+    
+    public function removeCart(Request $request)
+    {
+        $sneaker_id = $request->input('sneaker_id');
+        
+        Cart::removeCart($sneaker_id);
+        
+        return response()->json([
+            'message' => 'Product removed from cart'
+        ]);
     }
 
-    public function delete(Request $request)
+    public function clearCart(Request $request)
     {
-        Cart::deleteFromCart(1, $request->product_id);
-        return redirect()->route('cart');
-    }
-
-    public function deleteCart()
-    {
-        Cart::deleteCart(1);
-        return redirect()->route('cart');
+        Cart::clearCart();
+        
+        return response()->json([
+            'message' => 'Cart cleared'
+        ]);
     }
 
 }
