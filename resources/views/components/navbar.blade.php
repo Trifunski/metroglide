@@ -21,6 +21,7 @@
                 @if (strtotime(session()->get('token_expired_at')) > strtotime(date('Y-m-d H:i:s')))
                     <a href="/logout"><button class="bg-white font-semibold text-black px-4 py-2 rounded-md hover:bg-black hover:text-white hover:ring hover:ring-white transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2">Logout</button></a>
                 @else
+                    @php session()->flush(); @endphp
                     <a href="/login"><button class="bg-white font-semibold text-black px-4 py-2 rounded-md hover:bg-black hover:text-white hover:ring hover:ring-white transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2">Login</button></a>
                 @endif
             @else

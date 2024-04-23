@@ -1,7 +1,6 @@
 import SneakerDetails from '../components/sneakerDetails.js';
 import Cart from '../components/cart.js';
 
-
 document.addEventListener("DOMContentLoaded", function() {
     
     const sneakerDetails = new SneakerDetails();

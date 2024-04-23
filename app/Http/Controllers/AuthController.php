@@ -46,13 +46,7 @@ class AuthController extends Controller
 
     public function logout()
     {
-        session()->forget(['token', 'token_expired_at']);
-
-        $cart = Cart::getCart();
-
-        dd($cart);
-
-        Cart::saveCartToDatabase($cart);
+        session()->flush();
 
         return redirect()->back()->with('message', 'Logout success');
     }

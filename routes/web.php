@@ -22,4 +22,4 @@ Route::get('/logout', [AuthController::class, 'logout']);
 Route::post('/cart/add', [CartController::class, 'addCart']);
 Route::post('/cart/remove', [CartController::class, 'removeCart']);
 Route::post('/cart/update', [CartController::class, 'updateCart']);
-Route::get('/cart', [CartController::class, 'getCart']);
+Route::get('/cart/show', [CartController::class, 'getCart']);

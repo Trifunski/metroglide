@@ -43,7 +43,8 @@ class APIHandler {
     addToCart(sneakerId, sizeId) {
         return this.fetchPost('cart/add', {
             sneakerId: sneakerId,
-            sizeId: sizeId
+            sizeId: sizeId,
+            quantity: 1
         });
     }
 

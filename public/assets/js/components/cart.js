@@ -18,7 +18,7 @@ class Cart {
     async removeFromCart(sneakerId, sizeId) {
         try {
             await this.api.removeFromCart(sneakerId, sizeId);
-            alert('Item removed from cart.');
+            window.location.reload();
         } catch (error) {
             console.error('Error removing item from cart:', error.message);
             alert('Failed to remove item from cart.');

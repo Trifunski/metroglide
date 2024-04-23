@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use App\Models\Database;
+use App\Models\Sneaker;
+use App\Models\Size;
+use Illuminate\Support\Facades\Log;
 
 class Cart
 {
@@ -12,31 +15,40 @@ class Cart
         if (!session()->has('cart')) {
             session()->put('cart', []);
         }
-
+    
         $cart = session()->get('cart');
-
-        if (isset($cart[$product_id])) {
-            $cart[$product_id]['quantity'] += $quantity;
+    
+        $product_key = $product_id . '-' . $size_id;
+    
+        if (isset($cart[$product_key])) {
+            $cart[$product_key]['quantity'] += $quantity;
         } else {
-            $cart[$product_id] = [
+            $cart[$product_key] = [
                 'product_id' => $product_id,
                 'user_id' => $user_id,
                 'size_id' => $size_id,
                 'quantity' => $quantity
             ];
         }
-
+    
         session()->put('cart', $cart);
+    }    
+
+    public static function getCart()
+    {
+        return session()->get('cart');
     }
 
-    public static function removeCart($product_id)
+    public static function removeCart($product_id, $size_id)
     {
         $cart = session()->get('cart');
-
-        if (isset($cart[$product_id])) {
-            unset($cart[$product_id]);
+    
+        $product_key = $product_id . '-' . $size_id;
+    
+        if (isset($cart[$product_key])) {
+            unset($cart[$product_key]);
         }
-
+    
         session()->put('cart', $cart);
     }
 
@@ -49,11 +61,6 @@ class Cart
         }
 
         session()->put('cart', $cart);
-    }
-
-    public static function getCart()
-    {
-        return session()->get('cart');
     }
 
     public static function clearCart()

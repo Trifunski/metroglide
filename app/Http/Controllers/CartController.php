@@ -44,10 +44,11 @@ class CartController extends Controller
     
     public function removeCart(Request $request)
     {
-        $sneaker_id = $request->input('sneaker_id');
+        $sneaker_id = $request->input('sneakerId');
+        $size_id = $request->input('sizeId');
         
-        Cart::removeCart($sneaker_id);
-        
+        Cart::removeCart($sneaker_id, $size_id);
+
         return response()->json([
             'message' => 'Product removed from cart'
         ]);

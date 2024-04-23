@@ -54,14 +54,23 @@ CREATE TABLE IF NOT EXISTS Tokens (
     FOREIGN KEY (User_ID) REFERENCES Users(User_ID)
 );
 
-/* Create Cart_Items table */
-CREATE TABLE IF NOT EXISTS Cart (
-    Cart_Item_ID INT AUTO_INCREMENT PRIMARY KEY,
-    User_ID INT NOT NULL,
-    Sneaker_ID INT NOT NULL,
-    Size_ID INT NOT NULL,
-    Quantity INT NOT NULL,
-    FOREIGN KEY (User_ID) REFERENCES Users(User_ID),
+/* Carts */
+CREATE TABLE IF NOT EXISTS Carts (
+    Cart_ID INT AUTO_INCREMENT PRIMARY KEY,
+    User_ID INT,
+    Cart_Created_At DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (User_ID) REFERENCES Users(User_ID)
+);
+
+/* Cart_Detail */
+CREATE TABLE IF NOT EXISTS Cart_Details (
+    CartDetail_ID INT AUTO_INCREMENT PRIMARY KEY,
+    Cart_ID INT,
+    Sneaker_ID INT,
+    Size_ID INT,
+    Cart_Quantity INT NOT NULL,
+    Price_Per_Unit DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (Cart_ID) REFERENCES Carts(Cart_ID),
     FOREIGN KEY (Sneaker_ID) REFERENCES Sneakers(Sneaker_ID),
     FOREIGN KEY (Size_ID) REFERENCES Sizes(Size_ID)
 );
@@ -170,5 +179,55 @@ INSERT INTO Sneaker_Sizes (Sneaker_ID, Size_ID) VALUES
 (4, 7),
 (4, 8),
 (4, 9),
-(4, 10)
+(4, 10),
+(5, 1),
+(5, 2),
+(5, 3),
+(5, 4),
+(5, 5),
+(5, 6),
+(5, 7),
+(5, 8),
+(5, 9),
+(5, 10),
+(6, 1),
+(6, 2),
+(6, 3),
+(6, 4),
+(6, 5),
+(6, 6),
+(6, 7),
+(6, 8),
+(6, 9),
+(6, 10),
+(7, 1),
+(7, 2),
+(7, 3),
+(7, 4),
+(7, 5),
+(7, 6),
+(7, 7),
+(7, 8),
+(7, 9),
+(7, 10),
+(8, 1),
+(8, 2),
+(8, 3),
+(8, 4),
+(8, 5),
+(8, 6),
+(8, 7),
+(8, 8),
+(8, 9),
+(8, 10),
+(9, 1),
+(9, 2),
+(9, 3),
+(9, 4),
+(9, 5),
+(9, 6),
+(9, 7),
+(9, 8),
+(9, 9),
+(9, 10)
 AS new_sneaker_sizes ON DUPLICATE KEY UPDATE Sneaker_ID = new_sneaker_sizes.Sneaker_ID, Size_ID = new_sneaker_sizes.Size_ID;

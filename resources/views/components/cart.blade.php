@@ -1,23 +1,70 @@
-<div id="cartContainer" class="shadow-md my-6 p-4 flex justify-center">
-    <table>
-        <thead>
-            <tr>
-                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    Producto
-                </th>
-                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    Tamaño
-                </th>
-                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    Cantidad
-                </th>
-                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    Acciones
-                </th>
-            </tr>
-        </thead>
-        <tbody id="cartItems">
-            
-        </tbody>
-    </table>
+<div id="cartContainer" class="container mx-auto shadow-lg my-8 p-6 rounded-lg flex justify-center">
+
+    @if (count($cart_details) == 0)
+
+        <div class="text-center text-white">
+            <h1 class="text-2xl font-semibold">Your cart is empty</h1>
+            <a href="/" class="text-white hover:underline">Continue shopping</a>
+        </div>
+
+    @else 
+
+        <table class="min-w-full leading-normal">
+            <thead>
+                <tr>
+                    <th class="px-5 py-3 border-b-2 border-gray-300 bg-black text-left text-sm font-semibold text-white uppercase tracking-wider">
+                        
+                    </th>
+                    <th class="px-5 py-3 border-b-2 border-gray-300 bg-black text-left text-sm font-semibold text-white uppercase tracking-wider">
+                        Modelo
+                    </th>
+                    <th class="px-5 py-3 border-b-2 border-gray-300 bg-black text-left text-sm font-semibold text-white uppercase tracking-wider">
+                        Tamaño
+                    </th>
+                    <th class="px-5 py-3 border-b-2 border-gray-300 bg-black text-left text-sm font-semibold text-white uppercase tracking-wider">
+                        Cantidad
+                    </th>
+                    <th class="px-5 py-3 border-b-2 border-gray-300 bg-black text-left text-sm font-semibold text-white uppercase tracking-wider">
+                        Precio
+                    </th>
+                    <th class="px-5 py-3 border-b-2 border-gray-300 bg-black text-left text-sm font-semibold text-white uppercase tracking-wider">
+                        Acciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="cartItems">
+                @foreach($cart_details as $item)
+                    <tr>
+                        <td class="px-5 py-4 border-b border-gray-200 bg-black text-white text-sm">
+                            <img src="{{ $item['sneaker_img'] }}" alt="{{ $item['sneaker_model'] }}" class="h-24 w-auto">
+                        </td>
+                        <td class="px-5 py-4 border-b border-gray-200 bg-black text-white text-sm">
+                            {{ $item['sneaker_model'] }}
+                        </td>
+                        <td class="px-5 py-4 border-b border-gray-200 bg-black text-white text-sm">
+                            {{ $item['size'] }}
+                        </td>
+                        <td class="px-5 py-4 border-b border-gray-200 bg-black text-white text-sm">
+                            {{ $item['quantity'] }}
+                        </td>
+                        <td class="px-5 py-4 border-b border-gray-200 bg-black text-white text-sm">
+                            ${{ number_format($item['sneaker_price'], 2) }}
+                        </td>
+                        <td class="px-5 py-4 border-b border-gray-200 bg-black text-white text-sm">
+                            <button class="bg-white font-semibold text-black px-4 py-2 rounded-md hover:bg-black hover:text-white hover:ring hover:ring-white transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 delete-button" data-product-id="{{ $item['product_id'] }}" data-product-size="{{ $item['size_id'] }}">Delete</button>
+                            
+                        </td>
+                    </tr>
+                @endforeach
+                <tr>
+                    <td colspan="6" class="px-5 py-4 border-b border-gray-200 bg-black text-sm">
+                        <div class="flex justify-end w-full mt-2">
+                            <span class="font-semibold text-white mr-2">Total:</span>
+                            <span class="text-white">${{ number_format($total, 2) }}</span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    @endif
 </div>
