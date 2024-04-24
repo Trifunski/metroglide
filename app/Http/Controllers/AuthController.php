@@ -20,6 +20,9 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+
+        session()->flush();
+
         $email = $request->input('email');
         $password = $request->input('password');
         $user = $this->user->login($email, $password);
