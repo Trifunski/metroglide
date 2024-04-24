@@ -40,6 +40,10 @@ class APIHandler {
         return this.fetch(`sneakers/size/${id}`);
     }
 
+    fetchAllSizes() {
+        return this.fetch('sizes');
+    }
+
     addToCart(sneakerId, sizeId) {
         return this.fetchPost('cart/add', {
             sneakerId: sneakerId,

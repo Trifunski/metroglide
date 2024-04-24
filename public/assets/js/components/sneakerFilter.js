@@ -16,7 +16,12 @@ class SneakerFilter {
     async loadAllSneakers() {
         try {
             const sneakers = await this.api.fetchSneakers();
+            const brands = await this.api.fetchBrands();
+            const sizes = await this.api.fetchAllSizes();
+            console.log(brands, sizes);
             this.displaySneakers(sneakers);
+            this.displayBrands(brands);
+            this.displaySizes(sizes);
         }
         catch (error) {
             console.error(error);
@@ -54,6 +59,38 @@ class SneakerFilter {
             this.sneakerList.appendChild(sneakerCard);
         });               
     }
+
+    displayBrands(brands) {
+        const brandContainer = document.getElementById("containerBrands");
+        brandContainer.innerHTML = '';  // Limpiar el contenido existente antes de añadir nuevos elementos
+        brands.forEach(brand => {
+            const label = document.createElement("label");
+            label.className = "block text-gray-300 mb-2";
+            label.innerHTML = `
+                <input type="checkbox" id="brand-${brand.Brand_ID}" class="mr-2" value="${brand.Brand_ID}">
+                ${brand.Brand_Name}
+            `;
+            brandContainer.appendChild(label);
+        });
+    }
+    
+    displaySizes(sizes) {
+        const sizeContainer = document.getElementById("containerSizes");
+        sizeContainer.innerHTML = '';  // Limpiar el contenido existente antes de añadir nuevos elementos
+        sizes.forEach(size => {
+            const div = document.createElement("div");
+            div.className = "w-1/2 sm:w-1/4 lg:w-1/6 mb-2";
+            const label = document.createElement("label");
+            label.className = "block text-gray-300";
+            label.innerHTML = `
+                <input type="checkbox" id="size-${size.Size_ID}" class="mr-2" value="${size.Size_ID}">
+                ${size.Size_Value}
+            `;
+            div.appendChild(label);
+            sizeContainer.appendChild(div);
+        });
+    }
+    
 }
 
 export default SneakerFilter;
