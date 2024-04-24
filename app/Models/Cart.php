@@ -53,11 +53,14 @@ class Cart
         $product_key = $product_id . '-' . $size_id;
     
         if (isset($cart[$product_key])) {
-            unset($cart[$product_key]);
+            $cart[$product_key]['quantity'] -= $quantity;
+            if ($cart[$product_key]['quantity'] <= 0) {
+                unset($cart[$product_key]);
+            }
         }
     
         session()->put('cart', $cart);
-    }
+    }    
 
     public static function updateCart($product_id, $quantity)
     {
