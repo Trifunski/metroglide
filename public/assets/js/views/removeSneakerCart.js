@@ -12,9 +12,9 @@ document.addEventListener("DOMContentLoaded", function () {
             const size = button.getAttribute("data-product-size");
             const row = button.closest("tr");
             const quantityInputs = row.querySelector(".quantity-input");
-            
+
             cart.removeFromCart(id, size, quantityInputs.value);
         });
     });
     
-});
+}); 
