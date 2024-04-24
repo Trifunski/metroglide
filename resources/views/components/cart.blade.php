@@ -45,7 +45,7 @@
                             {{ $item['size'] }}
                         </td>
                         <td class="px-5 py-4 border-b border-gray-200 text-black bg-black text-sm">
-                            <input type="number" class="quantity-input" value="{{ $item['quantity'] }}" min="1" max="10">
+                            <input type="number" class="quantity-input rounded-lg" value="{{ $item['quantity'] }}" min="1" max="10">
                         </td>
                         <td class="px-5 py-4 border-b border-gray-200 bg-black text-white text-sm">
                             ${{ number_format($item['sneaker_price'], 2) }}
@@ -60,7 +60,7 @@
                         <div class="flex justify-end items-center w-full mt-2">
                             <span class="font-semibold text-white mr-2">Total:</span>
                             <span class="text-white">${{ number_format($total, 2) }}</span>
-                            <a href="/checkout" class="bg-white font-semibold text-black px-4 py-2 rounded-md hover:bg-black hover:text-white hover:ring hover:ring-white transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ml-4">Checkout</a>
+                            <button class="bg-white font-semibold text-black px-4 py-2 rounded-md hover:bg-black hover:text-white hover:ring hover:ring-white transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ml-3 checkout-button">Checkout</button>
                         </div>
                     </td>
                 </tr>
