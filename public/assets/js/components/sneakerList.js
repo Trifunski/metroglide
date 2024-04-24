@@ -6,9 +6,9 @@ class SneakerList {
         this.api = new APIHandler('/api/adrian');
     }
 
-    async loadSneakers(brandId = '') {
+    async loadSneakers() {
         try {
-            const sneakers = await this.api.fetchSneakers(brandId);
+            const sneakers = await this.api.fetchSneakers();
             this.render(sneakers);
         } catch (error) {
             console.error('Error loading sneakers:', error);

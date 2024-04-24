@@ -6,7 +6,7 @@
     @vite('resources/css/app.css')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-    <script type="module" src="{{ asset('assets/js/views/welcome.js') }}" defer></script>
+    <script type="module" src="{{ asset('assets/js/views/filter.js') }}" defer></script>
     <noscript>
         <meta http-equiv="refresh" content="0; url=/required">
     </noscript>
@@ -16,7 +16,7 @@
 
     <x-navbar />
 
-    
+    <x-filter />
 
     <x-footer />
     

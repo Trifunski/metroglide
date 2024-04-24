@@ -23,8 +23,8 @@ class APIHandler {
         });
     }
 
-    fetchSneakers(brandId = '') {
-        const endpoint = brandId ? `sneakers/brand/${brandId}` : 'sneakers';
+    fetchSneakers() {
+        const endpoint = 'sneakers';
         return this.fetch(endpoint);
     }
 
