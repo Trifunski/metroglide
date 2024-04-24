@@ -12,6 +12,7 @@ Route::view('/SneakerView', 'SneakerView');
 Route::view('/SneakerExplorer', 'SneakerExplorer');
 Route::view('/login', 'Login');
 Route::view('/cart', 'Cart');
+Route::view('/required', 'JavaScriptRequired');
 
 /* User */
 Route::post('/login', [AuthController::class, 'login']);

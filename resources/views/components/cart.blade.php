@@ -16,19 +16,19 @@
                         
                     </th>
                     <th class="px-5 py-3 border-b-2 border-gray-300 bg-black text-left text-sm font-semibold text-white uppercase tracking-wider">
-                        Modelo
+                        Model
                     </th>
                     <th class="px-5 py-3 border-b-2 border-gray-300 bg-black text-left text-sm font-semibold text-white uppercase tracking-wider">
-                        Tamaño
+                        Size
                     </th>
                     <th class="px-5 py-3 border-b-2 border-gray-300 bg-black text-left text-sm font-semibold text-white uppercase tracking-wider">
-                        Cantidad
+                        Quantity
                     </th>
                     <th class="px-5 py-3 border-b-2 border-gray-300 bg-black text-left text-sm font-semibold text-white uppercase tracking-wider">
-                        Precio
+                        Price
                     </th>
                     <th class="px-5 py-3 border-b-2 border-gray-300 bg-black text-left text-sm font-semibold text-white uppercase tracking-wider">
-                        Acciones
+                        Accion
                     </th>
                 </tr>
             </thead>
@@ -44,23 +44,23 @@
                         <td class="px-5 py-4 border-b border-gray-200 bg-black text-white text-sm">
                             {{ $item['size'] }}
                         </td>
-                        <td class="px-5 py-4 border-b border-gray-200 bg-black text-white text-sm">
-                            {{ $item['quantity'] }}
+                        <td class="px-5 py-4 border-b border-gray-200 text-black bg-black text-sm">
+                            <input type="number" class="quantity-input" value="{{ $item['quantity'] }}" min="1" max="10">
                         </td>
                         <td class="px-5 py-4 border-b border-gray-200 bg-black text-white text-sm">
                             ${{ number_format($item['sneaker_price'], 2) }}
                         </td>
                         <td class="px-5 py-4 border-b border-gray-200 bg-black text-white text-sm">
                             <button class="bg-white font-semibold text-black px-4 py-2 rounded-md hover:bg-black hover:text-white hover:ring hover:ring-white transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 delete-button" data-product-id="{{ $item['product_id'] }}" data-product-size="{{ $item['size_id'] }}">Delete</button>
-                            
                         </td>
                     </tr>
                 @endforeach
                 <tr>
                     <td colspan="6" class="px-5 py-4 border-b border-gray-200 bg-black text-sm">
-                        <div class="flex justify-end w-full mt-2">
+                        <div class="flex justify-end items-center w-full mt-2">
                             <span class="font-semibold text-white mr-2">Total:</span>
                             <span class="text-white">${{ number_format($total, 2) }}</span>
+                            <a href="/checkout" class="bg-white font-semibold text-black px-4 py-2 rounded-md hover:bg-black hover:text-white hover:ring hover:ring-white transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ml-4">Checkout</a>
                         </div>
                     </td>
                 </tr>

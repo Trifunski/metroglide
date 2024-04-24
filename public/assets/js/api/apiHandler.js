@@ -48,10 +48,11 @@ class APIHandler {
         });
     }
 
-    removeFromCart(sneakerId, sizeId) {
+    removeFromCart(sneakerId, sizeId, quantity) {
         return this.fetchPost('cart/remove', {
             sneakerId: sneakerId,
-            sizeId: sizeId
+            sizeId: sizeId,
+            quantity: quantity
         });
     }
 

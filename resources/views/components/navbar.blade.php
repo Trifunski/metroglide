@@ -2,7 +2,7 @@
     date_default_timezone_set('Atlantic/Canary');
 ?>
 
-<nav class="bg-black py-4 sm:m-5">
+<nav class="bg-black py-4 sm:m-5" id="up">
     <div class="container mx-auto flex justify-between">
         <div>
             <a href="/">

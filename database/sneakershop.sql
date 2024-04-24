@@ -54,12 +54,12 @@ CREATE TABLE IF NOT EXISTS Tokens (
     FOREIGN KEY (User_ID) REFERENCES Users(User_ID)
 );
 
-/* Carts */
+/* Create Carts table */
 CREATE TABLE IF NOT EXISTS Carts (
     Cart_ID INT AUTO_INCREMENT PRIMARY KEY,
     User_ID INT,
     Cart_Created_At DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (User_ID) REFERENCES Users(User_ID)
+    FOREIGN KEY (User_ID) REFERENCES Users(User_ID) ON DELETE CASCADE
 );
 
 /* Cart_Detail */
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS Cart_Details (
     Size_ID INT,
     Cart_Quantity INT NOT NULL,
     Price_Per_Unit DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (Cart_ID) REFERENCES Carts(Cart_ID),
+    FOREIGN KEY (Cart_ID) REFERENCES Carts(Cart_ID) ON DELETE CASCADE,
     FOREIGN KEY (Sneaker_ID) REFERENCES Sneakers(Sneaker_ID),
     FOREIGN KEY (Size_ID) REFERENCES Sizes(Size_ID)
 );

@@ -15,9 +15,9 @@ class Cart {
         }
     }
 
-    async removeFromCart(sneakerId, sizeId) {
+    async removeFromCart(sneakerId, sizeId, quantity) {
         try {
-            await this.api.removeFromCart(sneakerId, sizeId);
+            await this.api.removeFromCart(sneakerId, sizeId, quantity);
             window.location.reload();
         } catch (error) {
             console.error('Error removing item from cart:', error.message);
