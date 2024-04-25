@@ -5,6 +5,7 @@ var cart = new Cart();
 document.addEventListener("DOMContentLoaded", function () {
 
     const deleteButtons = document.querySelectorAll(".delete-button");
+    const checkoutButton = document.getElementById("checkoutButton");
 
     deleteButtons.forEach((button) => {
         button.addEventListener("click", function () {
@@ -15,6 +16,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
             cart.removeFromCart(id, size, quantityInputs.value);
         });
+    });
+
+    checkoutButton.addEventListener("click", function () {
+        cart.checkout();
     });
     
 }); 

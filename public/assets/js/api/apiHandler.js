@@ -48,6 +48,14 @@ class APIHandler {
         return this.fetchPost('sneakers/filter', filters);
     }
 
+    fetchCart() {
+        return this.fetch('cart');
+    }
+
+    checkout() {
+        return this.fetch('cart/checkout');
+    }
+
     addToCart(sneakerId, sizeId) {
         return this.fetchPost('cart/add', {
             sneakerId: sneakerId,
@@ -62,10 +70,6 @@ class APIHandler {
             sizeId: sizeId,
             quantity: quantity
         });
-    }
-
-    fetchCart() {
-        return this.fetch('cart');
     }
 
 }

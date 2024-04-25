@@ -22,6 +22,46 @@ class Cart
         return session()->get('cart');
     }
 
+    public static function checkout() 
+    {
+        $cart = self::getCart();
+        $products = [];
+        $sizes = [];
+        $total = 0;  // Inicializar total
+    
+        if ($cart) {
+            $sneaker = new Sneaker();
+            $size = new Size();
+    
+            // Centralizar la obtención de detalles y calcular el total
+            foreach ($cart as $item) {
+                $productId = $item['product_id'];
+                $sizeId = $item['size_id'];
+                $quantity = $item['quantity'];  // Asumiendo que la cantidad está en el carrito
+    
+                // Obtener detalles del producto
+                $productDetail = $sneaker->show($productId);
+                if ($productDetail) {
+                    $products[] = $productDetail;
+                    $pricePerUnit = $productDetail['Sneaker_Price'];  // Asumiendo que el precio está en los detalles del producto
+                    $total += $pricePerUnit * $quantity;  // Sumar al total
+                }
+    
+                // Obtener detalles del tamaño
+                $sizeDetail = $size->getSizeById($sizeId);
+                if ($sizeDetail) {
+                    $sizes[] = $sizeDetail;
+                }
+            }
+        }
+    
+        return [
+            'products' => $products,
+            'sizes' => $sizes,
+            'total' => $total  // Devolver el total calculado
+        ];
+    }                       
+
     public static function addCart($product_id, $user_id, $size_id, $quantity)
     {
         if (!session()->has('cart')) {

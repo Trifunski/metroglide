@@ -35,6 +35,78 @@ class Cart {
         }
     }
 
+    async checkout() {
+        try {
+            const checkout = await this.api.checkout();
+            console.log(checkout);
+            cartContainer.innerHTML = '';
+            const checkoutForm = document.createElement('form');
+            let productsHTML = '';
+    
+            // Construir HTML para cada producto en el carrito
+            checkout.products.forEach((product, index) => {
+                const size = checkout.sizes[index] ? checkout.sizes[index].Size_Value : 'N/A';
+                productsHTML += `
+                    <div class="flex flex-col mb-2 rounded-lg bg-white sm:flex-row">
+                        <img class="m-2 h-24 w-28 rounded-md object-cover object-center" src="${product.Sneaker_ImageURL}" alt="${product.Sneaker_Model}" />
+                        <div class="flex w-full flex-col px-4 py-4">
+                            <span class="font-semibold">${product.Sneaker_Model}</span>
+                            <span class="float-right text-gray-400">${size} EU</span>
+                            <p class="text-lg font-bold">$${parseFloat(product.Sneaker_Price).toFixed(2)}</p>
+                        </div>
+                    </div>
+                `;
+            });
+    
+            // Agregar los productos y detalles del formulario al HTML
+            checkoutForm.innerHTML = `
+                <div class="flex flex-col items-center py-4 sm:flex-row sm:px-10 lg:px-20 xl:px-32">
+                    <div class="grid sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32">
+                        <div class="mt-10 bg-white rounded px-4 pt-8 lg:mt-0">
+                            <p class="text-xl font-medium">Payment Details</p>
+                            <p class="text-gray-400">Complete your order by providing your payment details.</p>
+                            <div class="">
+                                <label for="email" class="mt-4 mb-2 block text-sm font-medium">Email</label>
+                                <div class="relative">
+                                    <input type="text" id="email" name="email" class="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="your.email@gmail.com" />
+                                </div>
+                                <label for="card-holder" class="mt-4 mb-2 block text-sm font-medium">Card Holder</label>
+                                <div class="relative">
+                                    <input type="text" id="card-holder" name="card-holder" class="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm uppercase shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="Your full name here" />
+                                </div>
+                                <label for="card-no" class="mt-4 mb-2 block text-sm font-medium">Card Details</label>
+                                <div class="flex">
+                                    <input type="text" id="card-no" name="card-no" class="w-7/12 rounded-md border border-gray-200 px-2 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="xxxx-xxxx-xxxx-xxxx" />
+                                    <input type="text" name="credit-expiry" class="w-full rounded-md border border-gray-200 px-2 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="MM/YY" />
+                                    <input type="text" name="credit-cvc" class="w-1/6 rounded-md border border-gray-200 px-2 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="CVC" />
+                                </div>
+                                <label for="billing-address" class="mt-4 mb-2 block text-sm font-medium">Billing Address</label>
+                                <div class="flex flex-col sm:flex-row">
+                                    <input type="text" id="billing-address" name="billing-address" class="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="Street Address" />
+                                    <input type="text" name="billing-state" class="w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="City" />
+                                    <input type="text" name="billing-zip" class="w-1/6 rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none sm:w-1/6 focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="ZIP" />
+                                </div>
+                                <div class="mt-6 flex items-center justify-between">
+                                    <p class="text-sm font-medium text-gray-900">Total</p>
+                                    <p class="text-2xl font-semibold text-gray-900">$${parseFloat(checkout.total).toFixed(2)}</p>
+                                </div>
+                                <button class="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">Place Order</button>
+                            </div>
+                        </div>
+                        <div class="px-4">
+                            ${productsHTML}
+                        </div>
+                    </div>
+                </div>
+            `;
+            cartContainer.appendChild(checkoutForm);
+    
+        } catch (error) {
+            console.error('Error checking out:', error.message);
+            alert('Failed to checkout.');
+        }
+    }       
+
     render(cart) {
         console.log(cart);
         const cartList = document.getElementById('cartList');

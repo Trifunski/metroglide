@@ -13,6 +13,8 @@ Route::view('/SneakerExplorer', 'SneakerExplorer');
 Route::view('/login', 'Login');
 Route::view('/cart', 'Cart');
 Route::view('/required', 'JavaScriptRequired');
+Route::view('/checkout', 'Checkout');
+Route::view('/examples', 'Examples');
 
 /* User */
 Route::post('/login', [AuthController::class, 'login']);
@@ -24,3 +26,4 @@ Route::post('/cart/add', [CartController::class, 'addCart']);
 Route::post('/cart/remove', [CartController::class, 'removeCart']);
 Route::post('/cart/update', [CartController::class, 'updateCart']);
 Route::get('/cart/show', [CartController::class, 'getCart']);
+Route::get('/cart/checkout', [CartController::class, 'checkout']);
