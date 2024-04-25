@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Sneaker;
+use Illuminate\Support\Facades\Log;
 
 class SneakersController extends Controller
 {
@@ -50,5 +51,11 @@ class SneakersController extends Controller
     public function indexBySize($size_id)
     {
         return response()->json($this->sneaker->indexBySize($size_id));
+    }
+
+    public function filter(Request $request)
+    {
+        $data = $request->all();
+        return response()->json($this->sneaker->filter($data));
     }
 }

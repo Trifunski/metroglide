@@ -1,8 +1,13 @@
+<script type="module" src="{{ asset('assets/js/views/filter.js') }}" defer></script>
+
 <section class="bg-black py-20">
     <div class="container mx-auto px-4">
         <div class="flex justify-between items-start">
-            <div class="w-1/4 bg-black border-y p-5 rounded-lg">
+            <!-- Inicio del contenedor del formulario de filtros -->
+            <form id="filterForm" class="w-1/4 bg-black border-y p-5 rounded-lg">
                 <h2 class="text-white text-lg font-semibold mb-4">Filters</h2>
+
+                <!-- Controles de marca -->
                 <div class="mb-4">
                     <div id="accordion-flush-brands" data-accordion="collapse" data-active-classes="text-gray-900" data-inactive-classes="text-gray-500">
                         <h2 id="accordion-flush-heading-1">
@@ -15,11 +20,13 @@
                         </h2>
                         <div id="accordion-flush-body-1" class="hidden" aria-labelledby="accordion-flush-heading-1">
                             <div id="containerBrands" class="py-5 border-b">
-                                
+                                <!-- Marcas se cargarán aquí -->
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Controles de tamaño -->
                 <div class="mb-4">
                     <div id="accordion-flush-size" data-accordion="collapse" data-active-classes="text-gray-900" data-inactive-classes="text-gray-500">
                         <h2 id="accordion-flush-heading-2">
@@ -32,20 +39,22 @@
                         </h2>
                         <div id="accordion-flush-body-2" class="hidden" aria-labelledby="accordion-flush-heading-2">
                             <div id="containerSizes" class="flex flex-wrap py-5 border-b">
-                                <div class="w-1/2 sm:w-1/4 lg:w-1/6 mb-2">
-                                    
-                                </div>
+                                <!-- Tamaños se cargarán aquí -->
                             </div>
                         </div>
                     </div>
                 </div>
-                <button id="filterButton" class="bg-white font-semibold text-black mt-2 px-4 py-2 rounded-md hover:bg-black hover:text-white hover:ring hover:ring-white transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2">Apply Filters</button>
-            </div>
+
+                <!-- Botón para aplicar los filtros -->
+                <button id="filterButton" type="submit" class="bg-white font-semibold text-black mt-2 px-4 py-2 rounded-md hover:bg-black hover:text-white hover:ring hover:ring-white transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2">Apply Filters</button>
+            </form>
+
+            <!-- Contenedor principal para mostrar sneakers -->
             <div class="w-3/4 pl-5">
                 <div class="grid grid-cols-3 gap-5 cursor-pointer" id="sneakersContainer">
-                    
+                    <!-- Sneakers se cargarán aquí -->
                 </div>
             </div>
         </div>
     </div>
-</section> 
+</section>

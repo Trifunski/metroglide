@@ -16,6 +16,7 @@ Route::prefix('adrian')->group(function () {
     Route::delete('sneakers/{id}', [SneakersController::class, 'destroy']);
     Route::get('sneakers/brand/{brand_id}', [SneakersController::class, 'indexByBrand']);
     Route::get('sneakers/size/{size_id}', [SneakersController::class, 'indexBySize']);
+    Route::post('sneakers/filter', [SneakersController::class, 'filter']);
 
     Route::get('sizes', [SizesController::class, 'index']);
     Route::get('sizes/{id}', [SizesController::class, 'show']);

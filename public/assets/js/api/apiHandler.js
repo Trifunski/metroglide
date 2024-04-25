@@ -44,6 +44,10 @@ class APIHandler {
         return this.fetch('sizes');
     }
 
+    fetchFilteredSneakers(filters) {
+        return this.fetchPost('sneakers/filter', filters);
+    }
+
     addToCart(sneakerId, sizeId) {
         return this.fetchPost('cart/add', {
             sneakerId: sneakerId,

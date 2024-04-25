@@ -1,17 +1,10 @@
 import SneakerFilter from "../components/sneakerFilter.js";
 
-var sneakerFilter = new SneakerFilter();
-
 document.addEventListener("DOMContentLoaded", () => {
-    const filterButton = document.getElementById("filterButton");
+    const sneakerFilter = new SneakerFilter();
 
-    filterButton.addEventListener("click", function() {
-        
-        let event = new Event('submit', {
-            bubbles: true,
-            cancelable: true 
-        });
-        
-        sneakerFilter.filterForm.dispatchEvent(event);
+    sneakerFilter.filterForm.addEventListener("submit", function(event) {
+        event.preventDefault();  // Esto evitará que la página se recargue.
+        sneakerFilter.handleFilter(event);  // Llama al método handleFilter.
     });
 });

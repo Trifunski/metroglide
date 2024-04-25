@@ -3,9 +3,8 @@ import APIHandler from "../api/apiHandler.js";
 class SneakerFilter {
     constructor() {
         this.filterForm = document.getElementById("filterForm");
-        this.filterBrand = document.getElementById("filterBrand");
-        this.filterSize = document.getElementById("filterSize");
-        this.filterPrice = document.getElementById("filterPrice");
+        this.filterBrand = document.getElementById("containerBrands");
+        this.filterSize = document.getElementById("containerSizes");
         this.sneakerList = document.getElementById("sneakersContainer");
 
         this.api = new APIHandler("/api/adrian");
@@ -18,7 +17,6 @@ class SneakerFilter {
             const sneakers = await this.api.fetchSneakers();
             const brands = await this.api.fetchBrands();
             const sizes = await this.api.fetchAllSizes();
-            console.log(brands, sizes);
             this.displaySneakers(sneakers);
             this.displayBrands(brands);
             this.displaySizes(sizes);
@@ -29,12 +27,13 @@ class SneakerFilter {
     }
 
     async handleFilter(event) {
-        event.preventDefault();
-        const brands = Array.from(this.filterBrand.selectedOptions).map(opt => opt.value);
-        const sizes = Array.from(this.filterSize.selectedOptions).map(opt => opt.value);
-        const price = this.filterPrice.value;
+        const brands = Array.from(this.filterBrand.querySelectorAll("input:checked")).map(input => input.value);
+        const sizes = Array.from(this.filterSize.querySelectorAll("input:checked")).map(input => input.value);
 
-        const sneakers = await this.api.fetchFilteredSneakers({ brands, sizes, price });
+        const filteredBrands = brands.length > 0 ? brands : [];
+        const filteredSizes = sizes.length > 0 ? sizes : [];
+
+        const sneakers = await this.api.fetchFilteredSneakers({ brands: filteredBrands, sizes: filteredSizes });
         this.displaySneakers(sneakers);
     }
 
@@ -46,8 +45,8 @@ class SneakerFilter {
         
             sneakerCard.innerHTML = `
             <a href="/SneakerView?id=${sneaker.Sneaker_ID}" class="block w-full h-full">
-                <img src="${sneaker.Sneaker_ImageURL}" class="w-full h-48 object-cover" alt="${sneaker.Sneaker_Model}">
-                <div class="p-4 bg-white">
+                <img src="${sneaker.Sneaker_ImageURL}" class="w-full h-48 object-cover p-2" alt="${sneaker.Sneaker_Model}">
+                <div class="p-4">
                     <h5 class="text-xl font-bold text-gray-900">${sneaker.Sneaker_Model}</h5>
                 </div>
                 <div class="px-4 pb-4">
