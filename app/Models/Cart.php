@@ -162,8 +162,6 @@ class Cart
     {
         $cart = session()->get('cart');
 
-        var_dump($cart);
-
         if ($cart) {
             $sqlInsertOrder = "INSERT INTO orders (User_ID, Order_Date, Order_Total) VALUES (?, ?, ?)";
             $createdAt = date('Y-m-d H:i:s');
@@ -189,7 +187,6 @@ class Cart
                 ]);
             }
 
-            self::clearCart();
         }
 
         return json_encode(['message' => 'Order completed']);

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cart;
-
+use Illuminate\Support\Facades\Log;
 class CartController extends Controller
 {
     
@@ -79,6 +79,9 @@ class CartController extends Controller
         $user = session()->get('user_id');
 
         Cart::saveCheckoutToDatabase($user);
+        Cart::clearCart();
+
+        Log::info('Checkout completed');
         
         return response()->json([
             'message' => 'Checkout completed'

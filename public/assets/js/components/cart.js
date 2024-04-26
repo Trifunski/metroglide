@@ -85,6 +85,7 @@ class Cart {
                 try {
                     await this.api.completedOrder();
                     alert('Order completed successfully.');
+                    window.location.reload();
                 } catch (error) {
                     console.error('Error completing order:', error.message);
                     alert('Failed to complete order.');
