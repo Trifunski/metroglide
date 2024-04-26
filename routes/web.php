@@ -27,3 +27,4 @@ Route::post('/cart/remove', [CartController::class, 'removeCart']);
 Route::post('/cart/update', [CartController::class, 'updateCart']);
 Route::get('/cart/show', [CartController::class, 'getCart']);
 Route::get('/cart/checkout', [CartController::class, 'checkout']);
+Route::get('/cart/completed', [CartController::class, 'completed']);

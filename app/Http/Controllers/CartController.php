@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cart;
-use Illuminate\Support\Facades\Log;
 
 class CartController extends Controller
 {
@@ -22,8 +21,9 @@ class CartController extends Controller
         $user_id = session()->get('user_id');
         $quantity = $request->input('quantity');
         $size_id = $request->input('sizeId');
+        $price = $request->input('price');
         
-        Cart::addCart($sneaker_id, $user_id, $size_id, $quantity);
+        Cart::addCart($sneaker_id, $user_id, $size_id, $quantity, $price);
         
         return response()->json([
             'message' => 'Product added to cart'
@@ -44,8 +44,6 @@ class CartController extends Controller
     
     public function removeCart(Request $request)
     {
-
-        Log::info($request->all());
 
         $sneaker_id = $request->input('sneakerId');
         $size_id = $request->input('sizeId');
@@ -73,6 +71,18 @@ class CartController extends Controller
         $cart = Cart::checkout();
         
         return response()->json($cart);
+    }
+
+    public function completed()
+    {
+
+        $user = session()->get('user_id');
+
+        Cart::saveCheckoutToDatabase($user);
+        
+        return response()->json([
+            'message' => 'Checkout completed'
+        ]);
     }
 
 }

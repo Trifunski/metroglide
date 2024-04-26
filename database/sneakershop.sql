@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS Order_Details (
     Size_ID INT,
     Order_Quantity INT NOT NULL,
     Price_Per_Unit DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (Order_ID) REFERENCES Orders(Order_ID),
+    FOREIGN KEY (Order_ID) REFERENCES Orders(Order_ID) ON DELETE CASCADE,
     FOREIGN KEY (Sneaker_ID) REFERENCES Sneakers(Sneaker_ID),
     FOREIGN KEY (Size_ID) REFERENCES Sizes(Size_ID)
 );

@@ -56,11 +56,16 @@ class APIHandler {
         return this.fetch('cart/checkout');
     }
 
-    addToCart(sneakerId, sizeId) {
+    completedOrder() {
+        return this.fetch('cart/completed');
+    }
+
+    addToCart(sneakerId, sizeId, price) {
         return this.fetchPost('cart/add', {
             sneakerId: sneakerId,
             sizeId: sizeId,
-            quantity: 1
+            quantity: 1,
+            price: price
         });
     }
 

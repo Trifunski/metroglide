@@ -13,7 +13,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.getElementById('addToCart').addEventListener('click', async function() {
         const sizeId = document.getElementById('sizeList').value;
-        await cart.addToCart(sneakerId, sizeId);
+        const price = document.getElementById('sneakerPrice').innerText.replace('$', '');
+        await cart.addToCart(sneakerId, sizeId, parseInt(price));
     });
 
 });

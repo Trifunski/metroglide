@@ -62,7 +62,7 @@ class Cart
         ];
     }                       
 
-    public static function addCart($product_id, $user_id, $size_id, $quantity)
+    public static function addCart($product_id, $user_id, $size_id, $quantity, $price)
     {
         if (!session()->has('cart')) {
             session()->put('cart', []);
@@ -79,7 +79,8 @@ class Cart
                 'product_id' => $product_id,
                 'user_id' => $user_id,
                 'size_id' => $size_id,
-                'quantity' => $quantity
+                'quantity' => $quantity,
+                'price_per_unit' => $price
             ];
         }
     
@@ -155,6 +156,43 @@ class Cart
         $cart = $this->db->fetchAll($sql, [$userId]);
 
         return $cart;
+    }
+
+    public static function saveCheckoutToDatabase($userId)
+    {
+        $cart = session()->get('cart');
+
+        var_dump($cart);
+
+        if ($cart) {
+            $sqlInsertOrder = "INSERT INTO orders (User_ID, Order_Date, Order_Total) VALUES (?, ?, ?)";
+            $createdAt = date('Y-m-d H:i:s');
+            $total = 0;
+
+            foreach ($cart as $item) {
+                $total += $item['quantity'] * $item['price_per_unit'];
+            }
+
+            $db = new Database();
+            $db->execute($sqlInsertOrder, [$userId, $createdAt, $total]);
+            $orderId = $db->lastInsertId();
+
+            $sqlInsertOrderDetails = "INSERT INTO order_details (Order_ID, Sneaker_ID, Size_ID, Order_Quantity, Price_Per_Unit) VALUES (?, ?, ?, ?, ?)";
+
+            foreach ($cart as $item) {
+                $db->execute($sqlInsertOrderDetails, [
+                    $orderId,
+                    $item['product_id'],
+                    $item['size_id'],
+                    $item['quantity'],
+                    $item['price_per_unit']
+                ]);
+            }
+
+            self::clearCart();
+        }
+
+        return json_encode(['message' => 'Order completed']);
     }
 
 }
