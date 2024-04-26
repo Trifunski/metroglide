@@ -28,7 +28,7 @@ class SneakerFilter {
 
     showSkeleton() {
         // Esqueleto para sneakers
-        this.sneakerList.innerHTML = new Array(5).fill("").map(() => `
+        this.sneakerList.innerHTML = new Array(9).fill("").map(() => `
             <div class="m-2 bg-white rounded-lg overflow-hidden shadow-lg animate-pulse">
                 <div class="w-full h-48 bg-gray-300"></div>
                 <div class="p-4">

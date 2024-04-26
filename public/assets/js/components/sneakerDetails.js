@@ -22,7 +22,7 @@ class SneakerDetails {
     showSkeleton() {
         const skeletonHTML = `
             <div class="lg:w-4/5 mx-auto flex justify-between">
-                <div class="lg:w-1/2 w-full lg:h-auto h-64 bg-gray-300 animate-pulse rounded"></div>
+                <div class="lg:w-1/2 w-full lg:h-auto h-64 bg-gray-300 animate-pulse rounded mr-5"></div>
                 <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                     <h2 class="text-3xl font-bold title-font tracking-widest bg-gray-300 animate-pulse h-10 w-3/4"></h2>
                     <h1 class="text-3xl title-font font-bold mb-1 bg-gray-300 animate-pulse h-10 w-1/2"></h1>
