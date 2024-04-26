@@ -8,11 +8,11 @@ class SneakerFilter {
         this.sneakerList = document.getElementById("sneakersContainer");
 
         this.api = new APIHandler("/api/adrian");
-        //this.filterForm.addEventListener("submit", this.handleFilter.bind(this));
         this.loadAllSneakers();
     }
 
     async loadAllSneakers() {
+        this.showSkeleton();
         try {
             const sneakers = await this.api.fetchSneakers();
             const brands = await this.api.fetchBrands();
@@ -24,6 +24,41 @@ class SneakerFilter {
         catch (error) {
             console.error(error);
         }
+    }
+
+    showSkeleton() {
+        // Esqueleto para sneakers
+        this.sneakerList.innerHTML = new Array(5).fill("").map(() => `
+            <div class="m-2 bg-white rounded-lg overflow-hidden shadow-lg animate-pulse">
+                <div class="w-full h-48 bg-gray-300"></div>
+                <div class="p-4">
+                    <div class="h-5 bg-gray-300 w-3/4 mb-2"></div>
+                    <div class="h-5 bg-gray-300 w-1/2"></div>
+                </div>
+                <div class="px-4 pb-4">
+                    <div class="h-5 bg-gray-300 w-full"></div>
+                    <div class="h-5 bg-gray-300 w-2/3 mt-2"></div>
+                </div>
+            </div>
+        `).join('');
+
+        // Esqueleto para marcas
+        this.filterBrand.innerHTML = new Array(3).fill("").map(() => `
+            <label class="block text-gray-300 mb-2 animate-pulse">
+                <div class="bg-gray-300 w-5 h-5 mr-2 inline-block"></div>
+                <div class="bg-gray-300 w-1/3 h-5 inline-block"></div>
+            </label>
+        `).join('');
+
+        // Esqueleto para tamaños
+        this.filterSize.innerHTML = new Array(6).fill("").map(() => `
+            <div class="w-1/2 sm:w-1/4 lg:w-1/6 mb-2 animate-pulse">
+                <label class="block text-gray-300">
+                    <div class="bg-gray-300 w-5 h-5 mr-2 inline-block"></div>
+                    <div class="bg-gray-300 w-1/4 h-5 inline-block"></div>
+                </label>
+            </div>
+        `).join('');
     }
 
     async handleFilter(event) {

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 use Illuminate\Support\Facades\Log;
+use App\Models\Token;
+
 class CartController extends Controller
 {
     
@@ -67,6 +69,14 @@ class CartController extends Controller
 
     public function checkout(Request $request)
     {
+
+        $token = session()->get('token');
+
+        if (Token::checkToken($token) === false) {
+            return response()->json([
+                'message' => 'Token is invalid'
+            ], 401);
+        }
 
         $cart = Cart::checkout();
         
