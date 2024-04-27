@@ -19,6 +19,14 @@ class CartController extends Controller
 
     public function addCart(Request $request)
     {
+
+        $request->validate([
+            'sneakerId' => 'required',
+            'quantity' => 'required',
+            'sizeId' => 'required',
+            'price' => 'required'
+        ]);
+
         $sneaker_id = $request->input('sneakerId');
         $user_id = session()->get('user_id');
         $quantity = $request->input('quantity');
@@ -46,6 +54,12 @@ class CartController extends Controller
     
     public function removeCart(Request $request)
     {
+
+        $request->validate([
+            'sneakerId' => 'required',
+            'sizeId' => 'required',
+            'quantity' => 'required'
+        ]);
 
         $sneaker_id = $request->input('sneakerId');
         $size_id = $request->input('sizeId');

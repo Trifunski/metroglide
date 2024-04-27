@@ -15,7 +15,6 @@
     <x-navbar />
 
     <section class="text-white body-font overflow-hidden">
-
         <div class="container px-5 py-24 mx-auto" id="sneakerContainer">
             
         </div>

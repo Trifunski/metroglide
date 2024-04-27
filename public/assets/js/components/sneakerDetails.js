@@ -48,6 +48,12 @@ class SneakerDetails {
     }
 
     render(sneaker, sizes) {
+
+        if (!sneaker || !sizes) {
+            this.container.innerHTML = '<p class="text-center">Sneaker not found</p>';
+            return;
+        }
+
         const sizeOptions = sizes.map(size => `<option value="${size.Size_ID}">${size.Size_Value}</option>`).join('');
         const cart = new Cart();
 
@@ -55,7 +61,6 @@ class SneakerDetails {
             <div class="lg:w-4/5 mx-auto flex justify-between">
                 <img id="sneakerImage" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="${sneaker.Sneaker_ImageURL}" alt="${sneaker.Sneaker_Model}">
                 <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-                    <h2 id="brandName" class="text-3xl font-bold title-font tracking-widest">${sneaker.Sneaker_Brand}</h2>
                     <h1 id="sneakerName" class="text-3xl title-font font-bold mb-1">${sneaker.Sneaker_Model}</h1>
                     <p id="sneakerDescription" class="leading-relaxed">${sneaker.Sneaker_Description}</p>
                     <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">

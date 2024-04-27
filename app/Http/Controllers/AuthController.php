@@ -24,6 +24,11 @@ class AuthController extends Controller
     {
         session()->flush();
 
+        $request->validate([
+            'email' => 'required|email|max:64',
+            'password' => 'required|min:8|max:64'
+        ]);
+
         $email = $request->input('email');
         $password = $request->input('password');
         $user = $this->user->login($email, $password);
@@ -59,17 +64,6 @@ class AuthController extends Controller
             session(['cart' => $formattedCart]);
         }
 
-    }
-
-    public function checkToken()
-    {
-        $token = session('token');
-        $token_expired_at = session('token_expired_at');
-        if ($token && $token_expired_at > date('Y-m-d H:i:s')) {
-            return response()->json(['message' => 'Token valid']);
-        } else {
-            return response()->json(['message' => 'Token invalid'], 401);
-        }
     }
 
     public function logout()

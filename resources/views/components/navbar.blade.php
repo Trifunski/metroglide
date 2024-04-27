@@ -12,8 +12,6 @@
         <ul class="flex items-center border border-y-white border-x-black">
             <li class="p-2 text-decoration-red"><a href="/" class="text-white">Home</a></li>
             <li class="p-2 text-decoration-red"><a href="/SneakerExplorer" class="text-white">Sneakers</a></li>
-            <li class="p-2 text-decoration-red"><a href="/about" class="text-white">About Us</a></li>
-            <li class="p-2 text-decoration-red"><a href="/contact" class="text-white">Contact</a></li>
         </ul>
         <div class="flex gap-3 items-center">
 

@@ -33,7 +33,7 @@
                                 <div class="flex justify-between">
                                     <label class="text-xs font-medium text-muted-foreground group-focus-within:text-white text-gray-400">Username</label>
                                 </div>
-                                <input type="text" id="email" autocomplete="off" class="block w-full border-0 bg-transparent p-1 text-sm file:my-1 file:rounded-full file:border-0 file:bg-accent file:px-4 file:py-2 file:font-medium placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 sm:leading-7">
+                                <input type="email" id="email" autocomplete="off" class="block w-full border-0 bg-transparent p-1 text-sm file:my-1 file:rounded-full file:border-0 file:bg-accent file:px-4 file:py-2 file:font-medium placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 sm:leading-7">
                             </div>
                             <div class="mt-4">
                                 <div>
@@ -42,7 +42,7 @@
                                             <label class="text-xs font-medium text-muted-foreground group-focus-within:text-white text-gray-400">Password</label>
                                         </div>
                                         <div class="flex items-center">
-                                            <input type="password" id="password"  class="block w-full border-0 bg-transparent p-1 text-sm file:my-1 placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 focus:ring-teal-500 sm:leading-7 text-foreground">
+                                            <input type="password" id="password" class="block w-full border-0 bg-transparent p-1 text-sm file:my-1 placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 focus:ring-teal-500 sm:leading-7 text-foreground">
                                         </div>
                                     </div>
                                 </div>

@@ -18,7 +18,6 @@ Route::view('/examples', 'Examples');
 
 /* User */
 Route::post('/login', [AuthController::class, 'login']);
-Route::get('/check-token', [AuthController::class, 'checkToken']);
 Route::get('/logout', [AuthController::class, 'logout']);
 
 /* Cart */
