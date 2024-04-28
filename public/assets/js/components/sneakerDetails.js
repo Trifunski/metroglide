@@ -59,7 +59,7 @@ class SneakerDetails {
 
         this.container.innerHTML = `
             <div class="lg:w-4/5 mx-auto flex justify-between">
-                <img id="sneakerImage" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="${sneaker.Sneaker_ImageURL}" alt="${sneaker.Sneaker_Model}">
+                <img id="sneakerImage" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="${sneaker.Sneaker_ImageURL}" fetchpriority="high" loading="lazy" alt="${sneaker.Sneaker_Model}">
                 <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                     <h1 id="sneakerName" class="text-3xl title-font font-bold mb-1">${sneaker.Sneaker_Model}</h1>
                     <p id="sneakerDescription" class="leading-relaxed">${sneaker.Sneaker_Description}</p>

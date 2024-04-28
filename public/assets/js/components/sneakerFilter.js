@@ -80,7 +80,7 @@ class SneakerFilter {
         
             sneakerCard.innerHTML = `
             <a href="/SneakerView?id=${sneaker.Sneaker_ID}" class="block w-full h-full">
-                <img src="${sneaker.Sneaker_ImageURL}" class="w-full h-48 object-cover p-2" alt="${sneaker.Sneaker_Model}">
+                <img src="${sneaker.Sneaker_ImageURL}" class="w-full h-48 object-cover p-2" fetchpriority="high" loading="lazy" alt="${sneaker.Sneaker_Model}">
                 <div class="p-4">
                     <h5 class="text-xl font-bold text-gray-900">${sneaker.Sneaker_Model}</h5>
                 </div>
