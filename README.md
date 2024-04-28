@@ -1,4 +1,3 @@
-```markdown
 # Instrucciones de instalación para Metroglide Version Laravel 10
 
 ## Paso 1: Clonar el repositorio
@@ -37,4 +36,3 @@ npm run dev
 ```
 
 Sigue estos pasos para configurar el entorno de desarrollo local de Metroglide.
-```
