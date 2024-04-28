@@ -7,7 +7,7 @@ git clone https://github.com/Trifunski/metroglide
 
 ## Paso 2: Cambiar al directorio del proyecto
 ```bash
-cd metroglide_version_laravel_10
+cd metroglide
 ```
 
 ## Paso 3: Instalar las dependencias de PHP
