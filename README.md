@@ -1,4 +1,4 @@
-# Instrucciones de instalación para Metroglide Version Laravel 10
+# Instrucciones de instalación para Metroglide
 
 ## Paso 1: Clonar el repositorio
 ```bash
