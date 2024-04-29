@@ -31,7 +31,7 @@
                         <form id="loginForm">
                             <div class="group relative rounded-lg border focus-within:border-sky-200 px-3 pb-1.5 pt-2.5 duration-200 focus-within:ring focus-within:ring-sky-300/30">
                                 <div class="flex justify-between">
-                                    <label class="text-xs font-medium text-muted-foreground group-focus-within:text-white text-gray-400">Username</label>
+                                    <label class="text-xs font-medium text-muted-foreground group-focus-within:text-white text-gray-400">Email</label>
                                 </div>
                                 <input type="email" id="email" autocomplete="off" class="block w-full border-0 bg-transparent p-1 text-sm file:my-1 file:rounded-full file:border-0 file:bg-accent file:px-4 file:py-2 file:font-medium placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 sm:leading-7">
                             </div>
