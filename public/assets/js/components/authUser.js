@@ -1,23 +1,29 @@
+import APIHandler from "../api/apiHandler.js";
+
 class AuthUser {
-    async submitLogin(email, password) {
-        const data = JSON.stringify({ email, password });
-        const response = await fetch('/login/auth', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            body: data
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to login');
-        }
-
-        const user = await response.json();
-        window.location.replace(document.referrer);
-        return user;
+    
+    constructor() {
+        this.api = new APIHandler('');
     }
+
+    async submitLogin(email, password) {
+        try {
+            const response = await this.api.login(email, password);
+
+            if (response.email) {
+                alert(response.email);
+            }
+
+            if (response.password) {
+                alert(response.password);
+            }
+
+            window.location.href = '/';
+        } catch (error) {
+            alert('Failed to log in: ' + error.message);
+        }
+    }
+
 }
 
 export default AuthUser;

@@ -10,7 +10,6 @@ loginForm.addEventListener('submit', async (event) => {
         const authUser = new AuthUser();
         await authUser.submitLogin(loginEmail.value, loginPassword.value);
     } catch (error) {
-        console.error('Error logging in:', error.message);
-        alert('Failed to log in. Please try again.');
+        alert('Failed to log in: ' + error.message);
     }
 });

@@ -5,9 +5,6 @@ class APIHandler {
 
     async fetch(url, options = {}) {
         const response = await fetch(`${this.baseUrl}/${url}`, options);
-        if (!response.ok) {
-            throw new Error('Network response was not ok.');
-        }
         return response.json();
     }
 
@@ -74,6 +71,13 @@ class APIHandler {
             sneakerId: sneakerId,
             sizeId: sizeId,
             quantity: quantity
+        });
+    }
+
+    login(email, password) {
+        return this.fetchPost('login/auth', { 
+            email: email, 
+            password: password 
         });
     }
 
