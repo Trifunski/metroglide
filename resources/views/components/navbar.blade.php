@@ -15,11 +15,13 @@
         </ul>
         <div class="flex gap-3 items-center">
 
-            @if (session()->has('token'))
-                @if (strtotime(session()->get('token_expired_at')) > strtotime(date('Y-m-d H:i:s')))
+            @php session_start(); @endphp
+
+            @if ($_SESSION['token'] ?? false)
+                @if (strtotime($_SESSION['token_expired_at']) > strtotime(date('Y-m-d H:i:s')))
                     <a href="/logout"><button class="bg-white font-semibold text-black px-4 py-2 rounded-md hover:bg-black hover:text-white hover:ring hover:ring-white transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2">Logout</button></a>
                 @else
-                    @php session()->flush(); @endphp
+                    @php session_destroy(); @endphp
                     <a href="/login"><button class="bg-white font-semibold text-black px-4 py-2 rounded-md hover:bg-black hover:text-white hover:ring hover:ring-white transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2">Login</button></a>
                 @endif
             @else
@@ -29,7 +31,7 @@
             <a href="/cart">
                 <div class="relative" style="display: inline-block;">
                     <x-heroicon-o-shopping-bag id="cart-icon" class="w-6 h-6 cursor-pointer text-white hover:scale-110"></x-heroicon-o-shopping-bag>
-                    @if (session()->has('token'))
+                    @if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0)
                         <span id="cart-count" class="hidden absolute -top-2 -right-2 rounded-full bg-red-600 text-white px-1 text-xs"></span>
                     @endif
                 </div>

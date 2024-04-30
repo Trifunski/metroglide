@@ -1,12 +1,11 @@
 <div id="cartContainer" class="container mx-auto shadow-lg my-8 p-6 rounded-lg flex justify-center">
 
-    @if (!empty($cart_details) && count($cart_details) == 0)
+    @if (count($cart_details) == 0)
         <div class="text-center text-white">
             <h1 class="text-2xl font-semibold">Your cart is empty</h1>
             <a href="/" class="text-white hover:underline">Continue shopping</a>
         </div>
     @else 
-
         <table class="min-w-full leading-normal">
             <thead>
                 <tr>
