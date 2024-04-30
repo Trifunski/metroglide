@@ -89,6 +89,4 @@ class Sneaker
         return $this->db->fetchAll($query, $params);
     }
 
-    
-
 }
