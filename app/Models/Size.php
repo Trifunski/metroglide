@@ -24,22 +24,4 @@ class Size
         return $this->db->fetch($query, [$id]);
     }
 
-    public function addSize($data)
-    {
-        $query = "INSERT INTO Sizes (Size_Value) VALUES (?)";
-        return $this->db->execute($query, [$data['value']]);
-    }
-
-    public function updateSize($data)
-    {
-        $query = "UPDATE Sizes SET Size_Value = ? WHERE Size_ID = ?";
-        return $this->db->execute($query, [$data['value'], $data['id']]);
-    }
-
-    public function deleteSize($id)
-    {
-        $query = "DELETE FROM Sizes WHERE Size_ID = ?";
-        return $this->db->execute($query, [$id]);
-    }
-
 }
