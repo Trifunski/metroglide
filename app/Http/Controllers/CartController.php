@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\Size;
 use App\Models\Token;
-use Illuminate\Support\Facades\Log;
 
 class CartController extends Controller
 {
@@ -162,8 +161,6 @@ class CartController extends Controller
 
         Cart::saveCheckoutToDatabase($user);
         Cart::clearCart();
-
-        Log::info('Checkout completed');
         
         return response()->json([
             'message' => 'Checkout completed'
