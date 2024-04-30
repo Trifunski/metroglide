@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS Carts (
     Cart_ID INT AUTO_INCREMENT PRIMARY KEY,
     User_ID INT,
     Cart_Created_At DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (User_ID) REFERENCES Users(User_ID) ON DELETE CASCADE
+    FOREIGN KEY (User_ID) REFERENCES Users(User_ID)
 );
 
 /* Cart_Detail */
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS Cart_Details (
     Size_ID INT,
     Cart_Quantity INT NOT NULL,
     Price_Per_Unit DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (Cart_ID) REFERENCES Carts(Cart_ID) ON DELETE CASCADE,
+    FOREIGN KEY (Cart_ID) REFERENCES Carts(Cart_ID),
     FOREIGN KEY (Sneaker_ID) REFERENCES Sneakers(Sneaker_ID),
     FOREIGN KEY (Size_ID) REFERENCES Sizes(Size_ID)
 );
@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS Cart_Details (
 CREATE TABLE IF NOT EXISTS Orders (
     Order_ID INT AUTO_INCREMENT PRIMARY KEY,
     User_ID INT,
-    Order_Date DATE NOT NULL,
+    Order_Date DATETIME NOT NULL,
     Order_Total DECIMAL(10, 2) NOT NULL,
     FOREIGN KEY (User_ID) REFERENCES Users(User_ID)
 );
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS Order_Details (
     Size_ID INT,
     Order_Quantity INT NOT NULL,
     Price_Per_Unit DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (Order_ID) REFERENCES Orders(Order_ID) ON DELETE CASCADE,
+    FOREIGN KEY (Order_ID) REFERENCES Orders(Order_ID),
     FOREIGN KEY (Sneaker_ID) REFERENCES Sneakers(Sneaker_ID),
     FOREIGN KEY (Size_ID) REFERENCES Sizes(Size_ID)
 );
