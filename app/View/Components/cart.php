@@ -35,7 +35,7 @@ class cart extends Component
                 $sneaker = $this->sneaker->show($product_id);
                 $size = $this->size->getSizeById($size_id);
     
-                if ($sneaker && $size) { // Asegúrate de que ambos, sneaker y size, existan antes de acceder a sus propiedades
+                if ($sneaker && $size) {
                     $this->cart_details[] = [
                         'product_id' => $product_id,
                         'size_id' => $size_id,
