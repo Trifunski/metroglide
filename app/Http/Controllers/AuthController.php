@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Cart;
 use App\Models\Token;
-use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -54,11 +53,8 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        session_destroy();  // Destruir sesión PHP existente
-        session_start();    // Iniciar una nueva sesión PHP
-
-        Log::info('Login attempt for email: ' . $request->input('email'));
-        Log::info('Login attempt for password: ' . $request->input('password'));
+        session_destroy();
+        session_start();
 
         $errors = $this->validateLogin($request);
         if (!empty($errors)) {
@@ -105,7 +101,7 @@ class AuthController extends Controller
     {
         $this->cart->saveCartToDatabase();
         $this->cart->clearCart();
-        session_destroy();  // Destruir la sesión PHP
+        session_destroy();
         return redirect()->back()->with('message', 'Logout success');
     }
 }
