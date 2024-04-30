@@ -1,7 +1,7 @@
 class AuthUser {
     async submitLogin(email, password) {
         const data = JSON.stringify({ email, password });
-        const response = await fetch('/login', {
+        const response = await fetch('/login/auth', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
