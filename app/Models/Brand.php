@@ -30,16 +30,4 @@ class Brand
         return $this->db->execute($query, [$data['name']]);
     }
 
-    public function updateBrand($data)
-    {
-        $query = "UPDATE Brands SET Brand_Name = ? WHERE Brand_ID = ?";
-        return $this->db->execute($query, [$data['name'], $data['id']]);
-    }
-
-    public function deleteBrand($id)
-    {
-        $query = "DELETE FROM Brands WHERE Brand_ID = ?";
-        return $this->db->execute($query, [$id]);
-    }
-
 }

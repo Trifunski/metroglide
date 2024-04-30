@@ -32,18 +32,6 @@ class Sneaker
         return $this->db->execute($query, [$data['brand_id'], $data['model'], $data['description'], $data['price'], $data['stock'], $data['image_url']]);
     }
 
-    public function update($id, $data)
-    {
-        $query = "UPDATE Sneakers SET Sneaker_Model = ?, Sneaker_Description = ?, Sneaker_Price = ?, Sneaker_Stock = ?, Sneaker_ImageURL = ? WHERE Sneaker_ID = ?";
-        return $this->db->execute($query, [$data['model'], $data['description'], $data['price'], $data['stock'], $data['image_url'], $id]);
-    }
-
-    public function destroy($id)
-    {
-        $query = "DELETE FROM Sneakers WHERE Sneaker_ID = ?";
-        return $this->db->execute($query, [$id]);
-    }
-
     public function indexByBrand($brand_id)
     {
         $query = "SELECT * FROM Sneakers WHERE Brand_ID = ?";

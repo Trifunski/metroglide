@@ -31,18 +31,6 @@ class User
         return $this->db->execute($query, [$data['name'], $data['email'], $data['password']]);
     }
 
-    public function update($id, $data)
-    {
-        $query = "UPDATE Users SET User_Name = ?, User_Email = ?, User_Password = ? WHERE User_ID = ?";
-        return $this->db->execute($query, [$data['name'], $data['email'], $data['password'], $id]);
-    }
-
-    public function destroy($id)
-    {
-        $query = "DELETE FROM Users WHERE User_ID = ?";
-        return $this->db->execute($query, [$id]);
-    }
-
     public function login($email, $password)
     {
         $query = "SELECT * FROM Users WHERE User_Email = ? AND User_Password = ?";
