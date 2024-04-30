@@ -138,7 +138,7 @@ class CartController extends Controller
 
         if (Token::checkToken($token) === false) {
             return response()->json([
-                'message' => 'Token is invalid'
+                'message' => 'Please log in to checkout'
             ], 401);
         }
 
