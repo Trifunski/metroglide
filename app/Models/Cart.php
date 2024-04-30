@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Models\Database;
 use App\Models\Sneaker;
 use App\Models\Size;
-use Illuminate\Support\Facades\Log;
 
 class Cart
 {
@@ -64,6 +63,7 @@ class Cart
 
     public static function addCart($product_id, $user_id, $size_id, $quantity, $price)
     {
+
         if (!session()->has('cart')) {
             session()->put('cart', []);
         }

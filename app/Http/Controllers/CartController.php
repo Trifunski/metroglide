@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cart;
-use Illuminate\Support\Facades\Log;
+use App\Models\Size;
 use App\Models\Token;
+use Illuminate\Support\Facades\Log;
 
 class CartController extends Controller
 {
@@ -27,11 +28,28 @@ class CartController extends Controller
             'price' => 'required'
         ]);
 
+        $token = session()->get('token');
+
+        if (Token::checkToken($token) === false) {
+            return response()->json([
+                'message' => 'Please log in to add to cart'
+            ]);
+        }
+
         $sneaker_id = $request->input('sneakerId');
         $user_id = session()->get('user_id');
         $quantity = $request->input('quantity');
         $size_id = $request->input('sizeId');
         $price = $request->input('price');
+
+        $sizeModel = new Size();
+        $size = $sizeModel->getSizeById($size_id);
+
+        if (empty($size)) {
+            return response()->json([
+                'message' => 'Size not valid'
+            ]);
+        }
         
         Cart::addCart($sneaker_id, $user_id, $size_id, $quantity, $price);
         

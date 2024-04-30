@@ -7,10 +7,9 @@ class Cart {
 
     async addToCart(sneakerId, sizeId, price) {
         try {
-            await this.api.addToCart(sneakerId, sizeId, price);
-            alert('Item added to cart.');
+            const cart = await this.api.addToCart(sneakerId, sizeId, price);
+            alert(cart.message);
         } catch (error) {
-            console.error('Error adding item to cart:', error.message);
             alert('Failed to add item to cart.');
         }
     }
