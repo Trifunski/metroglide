@@ -23,28 +23,30 @@ class cart extends Component
      */
     public function __construct()
     {
-        
-        $this->cart = session()->get('cart');
+
+        $this->cart = $_SESSION['cart'] ?? [];
         $this->cart_details = [];
         $this->sneaker = new Sneaker();
         $this->size = new Size();
 
-        if ($this->cart) {
+        if (!empty($this->cart)) {
             foreach ($this->cart as $key => $value) {
-                $product_id = explode('-', $key)[0];
-                $size_id = explode('-', $key)[1];
+                list($product_id, $size_id) = explode('-', $key);
                 $sneaker = $this->sneaker->show($product_id);
                 $size = $this->size->getSizeById($size_id);
-                $this->cart_details[] = [
-                    'product_id' => $product_id,
-                    'size_id' => $size_id,
-                    'sneaker_img' => $sneaker['Sneaker_ImageURL'],
-                    'sneaker_model' => $sneaker['Sneaker_Model'],
-                    'size' => $size['Size_Value'],
-                    'sneaker_price' => $sneaker['Sneaker_Price'],
-                    'quantity' => $value['quantity'],
-                ];
-                $this->total += $sneaker['Sneaker_Price'] * $value['quantity'];
+    
+                if ($sneaker && $size) { // Asegúrate de que ambos, sneaker y size, existan antes de acceder a sus propiedades
+                    $this->cart_details[] = [
+                        'product_id' => $product_id,
+                        'size_id' => $size_id,
+                        'sneaker_img' => $sneaker['Sneaker_ImageURL'],
+                        'sneaker_model' => $sneaker['Sneaker_Model'],
+                        'size' => $size['Size_Value'],
+                        'sneaker_price' => $sneaker['Sneaker_Price'],
+                        'quantity' => $value['quantity'],
+                    ];
+                    $this->total += $sneaker['Sneaker_Price'] * $value['quantity'];
+                }
             }
         }
         

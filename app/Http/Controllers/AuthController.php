@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Cart;
 use App\Models\Token;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -20,14 +21,49 @@ class AuthController extends Controller
         $this->cart = new Cart();
     }
 
+    private function validateLogin(Request $request)
+    {
+        $errors = [];
+        $email = $request->input('email');
+        $password = $request->input('password');
+
+        if (empty($email)) {
+            $errors['email'][] = 'The email field is required.';
+        } else {
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $errors['email'][] = 'The email must be a valid email address.';
+            }
+            if (strlen($email) > 64) {
+                $errors['email'][] = 'The email must not be more than 64 characters.';
+            }
+        }
+
+        if (empty($password)) {
+            $errors['password'][] = 'The password field is required.';
+        } else {
+            if (strlen($password) < 8) {
+                $errors['password'][] = 'The password must be at least 8 characters long.';
+            }
+            if (strlen($password) > 64) {
+                $errors['password'][] = 'The password must not be more than 64 characters.';
+            }
+        }
+
+        return $errors;
+    }
+
     public function login(Request $request)
     {
-        session()->flush();
+        session_destroy();  // Destruir sesión PHP existente
+        session_start();    // Iniciar una nueva sesión PHP
 
-        $request->validate([
-            'email' => 'required|email|max:64',
-            'password' => 'required|min:8|max:64'
-        ]);
+        Log::info('Login attempt for email: ' . $request->input('email'));
+        Log::info('Login attempt for password: ' . $request->input('password'));
+
+        $errors = $this->validateLogin($request);
+        if (!empty($errors)) {
+            return response()->json($errors, 422);
+        }
 
         $email = $request->input('email');
         $password = $request->input('password');
@@ -35,7 +71,9 @@ class AuthController extends Controller
 
         if ($user) {
             $token = $this->token->createToken($user['User_ID']);
-            session(['token' => $token[0], 'token_expired_at' => $token[1], 'user_id' => $user['User_ID']]);
+            $_SESSION['token'] = $token[0];
+            $_SESSION['token_expired_at'] = $token[1];
+            $_SESSION['user_id'] = $user['User_ID'];
             $this->loadUserCartIntoSession($user['User_ID']);
             return response()->json(['token' => $token]);
         } else {
@@ -45,7 +83,6 @@ class AuthController extends Controller
 
     public function loadUserCartIntoSession($userId)
     {
-        
         $cart = $this->cart->getCartFromDatabase($userId);
 
         if ($cart) {
@@ -59,22 +96,16 @@ class AuthController extends Controller
                     'price_per_unit' => $item['Price_Per_Unit']
                 ];
             }
-    
-            // Guardar el carrito en la sesión
-            session(['cart' => $formattedCart]);
-        }
 
+            $_SESSION['cart'] = $formattedCart;
+        }
     }
 
     public function logout()
     {
-
         $this->cart->saveCartToDatabase();
         $this->cart->clearCart();
-
-        session()->flush();
-
+        session_destroy();  // Destruir la sesión PHP
         return redirect()->back()->with('message', 'Logout success');
-
     }
 }

@@ -10,9 +10,21 @@ use Illuminate\Support\Facades\Log;
 
 class CartController extends Controller
 {
-    
+    public function __construct()
+    {
+        session_start(); 
+    }
+
     public function getCart(Request $request)
     {
+        $token = $_SESSION['token'] ?? null;
+
+        if (Token::checkToken($token) === false) {
+            return response()->json([
+                'message' => 'Please log in to view cart'
+            ]);
+        }
+
         $cart = Cart::getCart();
         
         return response()->json($cart);
@@ -20,7 +32,6 @@ class CartController extends Controller
 
     public function addCart(Request $request)
     {
-
         $request->validate([
             'sneakerId' => 'required',
             'quantity' => 'required',
@@ -28,7 +39,7 @@ class CartController extends Controller
             'price' => 'required'
         ]);
 
-        $token = session()->get('token');
+        $token = $_SESSION['token'] ?? null;
 
         if (Token::checkToken($token) === false) {
             return response()->json([
@@ -37,7 +48,7 @@ class CartController extends Controller
         }
 
         $sneaker_id = $request->input('sneakerId');
-        $user_id = session()->get('user_id');
+        $user_id = $_SESSION['user_id'] ?? null;
         $quantity = $request->input('quantity');
         $size_id = $request->input('sizeId');
         $price = $request->input('price');
@@ -60,6 +71,14 @@ class CartController extends Controller
 
     public function updateCart(Request $request)
     {
+        $token = $_SESSION['token'] ?? null;
+
+        if (Token::checkToken($token) === false) {
+            return response()->json([
+                'message' => 'Please log in to update cart'
+            ]);
+        }
+
         $sneaker_id = $request->input('sneaker_id');
         $quantity = $request->input('quantity');
         
@@ -72,6 +91,13 @@ class CartController extends Controller
     
     public function removeCart(Request $request)
     {
+        $token = $_SESSION['token'] ?? null;
+
+        if (Token::checkToken($token) === false) {
+            return response()->json([
+                'message' => 'Please log in to remove from cart'
+            ]);
+        }
 
         $request->validate([
             'sneakerId' => 'required',
@@ -92,6 +118,14 @@ class CartController extends Controller
 
     public function clearCart(Request $request)
     {
+        $token = $_SESSION['token'] ?? null;
+
+        if (Token::checkToken($token) === false) {
+            return response()->json([
+                'message' => 'Please log in to clear cart'
+            ]);
+        }
+
         Cart::clearCart();
         
         return response()->json([
@@ -101,8 +135,7 @@ class CartController extends Controller
 
     public function checkout(Request $request)
     {
-
-        $token = session()->get('token');
+        $token = $_SESSION['token'] ?? null;
 
         if (Token::checkToken($token) === false) {
             return response()->json([
@@ -117,8 +150,15 @@ class CartController extends Controller
 
     public function completed()
     {
+        $token = $_SESSION['token'] ?? null;
 
-        $user = session()->get('user_id');
+        if (Token::checkToken($token) === false) {
+            return response()->json([
+                'message' => 'Please log in to complete checkout'
+            ]);
+        }
+
+        $user = $_SESSION['user_id'] ?? null;
 
         Cart::saveCheckoutToDatabase($user);
         Cart::clearCart();
@@ -129,5 +169,4 @@ class CartController extends Controller
             'message' => 'Checkout completed'
         ]);
     }
-
 }

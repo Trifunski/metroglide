@@ -8,7 +8,6 @@ use App\Models\Size;
 
 class Cart
 {
-
     private $db;
 
     function __construct()
@@ -18,7 +17,7 @@ class Cart
 
     public static function getCart()
     {
-        return session()->get('cart');
+        return $_SESSION['cart'] ?? [];
     }
 
     public static function checkout() 
@@ -26,27 +25,24 @@ class Cart
         $cart = self::getCart();
         $products = [];
         $sizes = [];
-        $total = 0;  // Inicializar total
+        $total = 0;
     
         if ($cart) {
             $sneaker = new Sneaker();
             $size = new Size();
     
-            // Centralizar la obtención de detalles y calcular el total
             foreach ($cart as $item) {
                 $productId = $item['product_id'];
                 $sizeId = $item['size_id'];
-                $quantity = $item['quantity'];  // Asumiendo que la cantidad está en el carrito
+                $quantity = $item['quantity'];
     
-                // Obtener detalles del producto
                 $productDetail = $sneaker->show($productId);
                 if ($productDetail) {
                     $products[] = $productDetail;
-                    $pricePerUnit = $productDetail['Sneaker_Price'];  // Asumiendo que el precio está en los detalles del producto
-                    $total += $pricePerUnit * $quantity;  // Sumar al total
+                    $pricePerUnit = $productDetail['Sneaker_Price'];
+                    $total += $pricePerUnit * $quantity;
                 }
     
-                // Obtener detalles del tamaño
                 $sizeDetail = $size->getSizeById($sizeId);
                 if ($sizeDetail) {
                     $sizes[] = $sizeDetail;
@@ -57,19 +53,17 @@ class Cart
         return [
             'products' => $products,
             'sizes' => $sizes,
-            'total' => $total  // Devolver el total calculado
+            'total' => $total
         ];
-    }                       
+    }
 
     public static function addCart($product_id, $user_id, $size_id, $quantity, $price)
     {
-
-        if (!session()->has('cart')) {
-            session()->put('cart', []);
+        if (!isset($_SESSION['cart'])) {
+            $_SESSION['cart'] = [];
         }
     
-        $cart = session()->get('cart');
-    
+        $cart = $_SESSION['cart'];
         $product_key = $product_id . '-' . $size_id;
 
         if (isset($cart[$product_key])) {
@@ -84,12 +78,12 @@ class Cart
             ];
         }
     
-        session()->put('cart', $cart);
-    }    
+        $_SESSION['cart'] = $cart;
+    }
 
     public static function removeCart($product_id, $size_id, $quantity)
     {
-        $cart = session()->get('cart');
+        $cart = $_SESSION['cart'];
     
         $product_key = $product_id . '-' . $size_id;
     
@@ -100,32 +94,32 @@ class Cart
             }
         }
     
-        session()->put('cart', $cart);
-    }    
+        $_SESSION['cart'] = $cart;
+    }
 
     public static function updateCart($product_id, $quantity)
     {
-        $cart = session()->get('cart');
+        $cart = $_SESSION['cart'];
 
         if (isset($cart[$product_id])) {
             $cart[$product_id]['quantity'] = $quantity;
         }
 
-        session()->put('cart', $cart);
+        $_SESSION['cart'] = $cart;
     }
 
     public static function clearCart()
     {
-        session()->forget('cart');
+        unset($_SESSION['cart']);
     }
 
     public function saveCartToDatabase()
     {
-        $cart = session()->get('cart');
+        $cart = $_SESSION['cart'] ?? [];
     
         if ($cart) {
             $sqlInsertCart = "INSERT INTO carts (User_ID, Cart_Created_At) VALUES (?, ?)";
-            $userId = session('user_id');
+            $userId = $_SESSION['user_id'] ?? null;
             $createdAt = date('Y-m-d H:i:s');
             $this->db->execute($sqlInsertCart, [$userId, $createdAt]);
             $cartId = $this->db->lastInsertId();
@@ -160,7 +154,7 @@ class Cart
 
     public static function saveCheckoutToDatabase($userId)
     {
-        $cart = session()->get('cart');
+        $cart = $_SESSION['cart'];
 
         if ($cart) {
             $sqlInsertOrder = "INSERT INTO orders (User_ID, Order_Date, Order_Total) VALUES (?, ?, ?)";
@@ -186,7 +180,6 @@ class Cart
                     $item['price_per_unit']
                 ]);
             }
-
         }
 
         return json_encode(['message' => 'Order completed']);

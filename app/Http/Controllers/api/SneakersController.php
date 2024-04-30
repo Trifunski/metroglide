@@ -5,14 +5,16 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Sneaker;
-use Illuminate\Support\Facades\Log;
+use App\Models\Token;
 
 class SneakersController extends Controller
 {
     private $sneaker;
+    private $token;
 
     public function __construct()
-    {
+    {       
+        $this->token = session()->get('token');
         $this->sneaker = new Sneaker();
     }
 
@@ -28,18 +30,39 @@ class SneakersController extends Controller
 
     public function store(Request $request)
     {
+
+        if (Token::checkToken($this->token) === false) {
+            return response()->json([
+                'message' => 'Please log in to add sneakers'
+            ]);
+        }
+
         $data = $request->all();
         return response()->json($this->sneaker->store($data));
     }
 
     public function update(Request $request, $id)
     {
+
+        if (Token::checkToken($this->token) === false) {
+            return response()->json([
+                'message' => 'Please log in to update sneakers'
+            ]);
+        }
+
         $data = $request->all();
         return response()->json($this->sneaker->update($id, $data));
     }
 
     public function destroy($id)
     {
+
+        if (Token::checkToken($this->token) === false) {
+            return response()->json([
+                'message' => 'Please log in to delete sneakers'
+            ]);
+        }
+
         return response()->json($this->sneaker->destroy($id));
     }
 

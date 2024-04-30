@@ -24,20 +24,17 @@ class Token
 
     public static function checkToken($token)
     {
-        
-        $token = session()->get('token');
-        $expired_at = session()->get('token_expired_at');
-
-        if ($token == null || $expired_at == null) {
+        if (!isset($_SESSION['token']) || !isset($_SESSION['token_expired_at'])) {
             return false;
         }
+
+        $token = $_SESSION['token'];
+        $expired_at = $_SESSION['token_expired_at'];
 
         if (strtotime($expired_at) < strtotime(date('Y-m-d H:i:s'))) {
             return false;
         }
 
         return true;
-
     }
-
 }

@@ -11,24 +11,7 @@ class User
     public function __construct()
     {
         $this->db = new Database();
-    }
-
-    public function index()
-    {
-        $query = "SELECT * FROM Users";
-        return $this->db->fetchAll($query);
-    }
-
-    public function show($id)
-    {
-        $query = "SELECT * FROM Users WHERE User_ID = ?";
-        return $this->db->fetch($query, [$id]);
-    }
-
-    public function store($data)
-    {
-        $query = "INSERT INTO Users (User_Name, User_Email, User_Password) VALUES (?, ?, ?)";
-        return $this->db->execute($query, [$data['name'], $data['email'], $data['password']]);
+        session_start();
     }
 
     public function login($email, $password)
