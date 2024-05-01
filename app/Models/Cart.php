@@ -160,7 +160,7 @@ class Cart
         $cart = $_SESSION['cart'] ?? [];
     
         if ($cart) {
-            $sqlInsertCart = "INSERT INTO carts (User_ID, Cart_Created_At) VALUES (?, ?)";
+            $sqlInsertCart = "INSERT INTO Carts (User_ID, Cart_Created_At) VALUES (?, ?)";
             $userId = $_SESSION['user_id'] ?? null;
             $createdAt = date('Y-m-d H:i:s');
             $this->db->execute($sqlInsertCart, [$userId, $createdAt]);
@@ -173,7 +173,7 @@ class Cart
                 $product = $sneaker->show($item['product_id']);
                 $sizeDetail = $size->getSizeById($item['size_id']);
 
-                $sqlInsertDetails = "INSERT INTO cart_details (Cart_ID, Sneaker_ID, Size_ID, Cart_Quantity, Price_Per_Unit) VALUES (?, ?, ?, ?, ?)";
+                $sqlInsertDetails = "INSERT INTO Cart_details (Cart_ID, Sneaker_ID, Size_ID, Cart_Quantity, Price_Per_Unit) VALUES (?, ?, ?, ?, ?)";
                 $this->db->execute($sqlInsertDetails, [
                     $cartId,
                     $item['product_id'],
@@ -208,7 +208,7 @@ class Cart
         $cart = $_SESSION['cart'];
 
         if ($cart) {
-            $sqlInsertOrder = "INSERT INTO orders (User_ID, Order_Date, Order_Total) VALUES (?, ?, ?)";
+            $sqlInsertOrder = "INSERT INTO Orders (User_ID, Order_Date, Order_Total) VALUES (?, ?, ?)";
             $createdAt = date('Y-m-d H:i:s');
             $total = 0;
 
@@ -220,7 +220,7 @@ class Cart
             $db->execute($sqlInsertOrder, [$userId, $createdAt, $total]);
             $orderId = $db->lastInsertId();
 
-            $sqlInsertOrderDetails = "INSERT INTO order_details (Order_ID, Sneaker_ID, Size_ID, Order_Quantity, Price_Per_Unit) VALUES (?, ?, ?, ?, ?)";
+            $sqlInsertOrderDetails = "INSERT INTO Order_details (Order_ID, Sneaker_ID, Size_ID, Order_Quantity, Price_Per_Unit) VALUES (?, ?, ?, ?, ?)";
 
             foreach ($cart as $item) {
                 $db->execute($sqlInsertOrderDetails, [
