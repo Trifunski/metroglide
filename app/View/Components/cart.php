@@ -23,7 +23,7 @@ class Cart extends Component
     /**
      * @var array Detalles del carrito que incluyen información detallada de los productos.
      */
-    public $cart_details;
+    public $cart_details = [];
 
     /**
      * @var Sneaker Modelo para gestionar las operaciones relacionadas con zapatillas.
@@ -47,7 +47,6 @@ class Cart extends Component
     {
 
         $this->cart = $_SESSION['cart'] ?? [];
-        $this->cart_details = [];
         $this->sneaker = new Sneaker();
         $this->size = new Size();
 
