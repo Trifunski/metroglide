@@ -71,8 +71,6 @@ class Cart extends Component
                 }
             }
         }
-
-        dd($this->cart_details);
         
     }
 
