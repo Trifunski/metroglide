@@ -50,7 +50,7 @@ class Cart extends Component
         $this->sneaker = new Sneaker();
         $this->size = new Size();
 
-        /* if (!empty($this->cart)) {
+        if (!empty($this->cart)) {
             foreach ($this->cart as $key => $value) {
                 list($product_id, $size_id) = explode('-', $key);
                 $sneaker = $this->sneaker->show($product_id);
@@ -69,7 +69,7 @@ class Cart extends Component
                     $this->total += $sneaker['Sneaker_Price'] * $value['quantity'];
                 }
             }
-        } */
+        }
         
     }
 
