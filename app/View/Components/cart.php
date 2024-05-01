@@ -12,7 +12,7 @@ use App\Models\Size;
 /**
  * Componente de vista para representar y manejar el carrito de compras.
  */
-class cart extends Component
+class Cart extends Component
 {
 
     /**
@@ -45,6 +45,8 @@ class cart extends Component
      */
     public function __construct()
     {
+
+        dd($this->cart_details);
 
         $this->cart = $_SESSION['cart'] ?? [];
         $this->cart_details = [];
