@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS defaultdb;
-CREATE DATABASE defaultdb;
-USE defaultdb;
+DROP DATABASE IF EXISTS forge;
+CREATE DATABASE forge;
+USE forge;
 
 /* Create Brands table */
 CREATE TABLE IF NOT EXISTS Brands (
@@ -121,15 +121,15 @@ AS new_sizes ON DUPLICATE KEY UPDATE Size_Value = new_sizes.Size_Value;
 
 /* Ensure all Brands are inserted before referencing them in the Sneakers table */
 INSERT INTO Sneakers (Brand_ID, Sneaker_Model, Sneaker_Price, Sneaker_Stock, Sneaker_Description, Sneaker_ImageURL) VALUES 
-(1, 'Air Force 1', 100.00, 50, 'Classic basketball shoes', 'http://metroglide.com/assets/img/sneakers/air-force-one-removebg.webp'),
-(1, 'Air Max 90', 120.00, 30, 'Iconic running shoes', 'http://metroglide.com/assets/img/sneakers/air-max-90-removebg.webp'),
-(2, 'Superstar', 80.00, 40, 'Classic shell-toe shoes', 'http://metroglide.com/assets/img/sneakers/superstar-removebg.webp'),
-(2, 'Ultraboost', 180.00, 20, 'High-performance running shoes', 'http://metroglide.com/assets/img/sneakers/ultraboost-removebg.webp'),
-(1, 'Jordan 4 Retro Military Blue', 400.00, 10, 'Retro basketball shoes', 'http://metroglide.com/assets/img/sneakers/military-blue-removebg.webp'),
-(2, 'Response CL Bad Bunny Paso Fino', 160.00, 15, 'Collaboration with Bad Bunny', 'http://metroglide.com/assets/img/sneakers/paso-fino-removebg.webp'),
-(3, 'RS-X3 Puzzle', 110.00, 25, 'Chunky sneakers', 'http://metroglide.com/assets/img/sneakers/rs-x3-removebg.webp'),
-(4, 'Classic Leather', 75.00, 35, 'Classic running shoes', 'http://metroglide.com/assets/img/sneakers/classic-leather-removebg.webp'),
-(3, 'Future Rider Twofold', 90.00, 30, 'Retro running shoes', 'http://metroglide.com/assets/img/sneakers/future-rider-removebg.webp')
+(1, 'Air Force 1', 100.00, 50, 'Classic basketball shoes', 'assets/img/sneakers/air-force-one-removebg.webp'),
+(1, 'Air Max 90', 120.00, 30, 'Iconic running shoes', 'assets/img/sneakers/air-max-90-removebg.webp'),
+(2, 'Superstar', 80.00, 40, 'Classic shell-toe shoes', 'assets/img/sneakers/superstar-removebg.webp'),
+(2, 'Ultraboost', 180.00, 20, 'High-performance running shoes', 'assets/img/sneakers/ultraboost-removebg.webp'),
+(1, 'Jordan 4 Retro Military Blue', 400.00, 10, 'Retro basketball shoes', 'assets/img/sneakers/military-blue-removebg.webp'),
+(2, 'Response CL Bad Bunny Paso Fino', 160.00, 15, 'Collaboration with Bad Bunny', 'assets/img/sneakers/paso-fino-removebg.webp'),
+(3, 'RS-X3 Puzzle', 110.00, 25, 'Chunky sneakers', 'assets/img/sneakers/rs-x3-removebg.webp'),
+(4, 'Classic Leather', 75.00, 35, 'Classic running shoes', 'assets/img/sneakers/classic-leather-removebg.webp'),
+(3, 'Future Rider Twofold', 90.00, 30, 'Retro running shoes', 'assets/img/sneakers/future-rider-removebg.webp')
 AS new_sneakers ON DUPLICATE KEY UPDATE Brand_ID = new_sneakers.Brand_ID, Sneaker_Model = new_sneakers.Sneaker_Model, Sneaker_Price = new_sneakers.Sneaker_Price, Sneaker_Stock = new_sneakers.Sneaker_Stock, Sneaker_Description = new_sneakers.Sneaker_Description, Sneaker_ImageURL = new_sneakers.Sneaker_ImageURL;
 
 /* Insert example data into User table */
