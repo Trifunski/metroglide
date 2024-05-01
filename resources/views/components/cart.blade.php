@@ -1,6 +1,33 @@
+@php
+    $cart = $_SESSION['cart'] ?? [];
+    $sneaker = new App\Models\Sneaker();
+    $size = new App\Models\Size();
+    $cart_details = [];
+
+    $total = 0;
+    foreach ($cart as $key => $value) {
+        list($product_id, $size_id) = explode('-', $key);
+        $sneakerData = $sneaker->show($product_id);
+        $sizeData = $size->getSizeById($size_id);
+
+        if ($sneakerData && $sizeData) {
+            $cart_details[] = [
+                'product_id' => $product_id,
+                'size_id' => $size_id,
+                'sneaker_img' => $sneakerData['Sneaker_ImageURL'],
+                'sneaker_model' => $sneakerData['Sneaker_Model'],
+                'size' => $sizeData['Size_Value'],
+                'sneaker_price' => $sneakerData['Sneaker_Price'],
+                'quantity' => $value['quantity'],
+            ];
+            $total += $sneakerData['Sneaker_Price'] * $value['quantity'];
+        }
+    }
+@endphp
+
 <div id="cartContainer" class="container mx-auto shadow-lg my-8 p-6 rounded-lg flex justify-center">
 
-    @if ($cart_details && count($cart_details) > 0)
+    @if (count($cart_details) == 0 || $cart_details == null)
         <div class="text-center text-white">
             <h1 class="text-2xl font-semibold">Your cart is empty</h1>
             <a href="/" class="text-white hover:underline">Continue shopping</a>
