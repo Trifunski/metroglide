@@ -9,17 +9,39 @@ use App\Models\Cart as CartModel;
 use App\Models\Sneaker;
 use App\Models\Size;
 
+/**
+ * Componente de vista para representar y manejar el carrito de compras.
+ */
 class cart extends Component
 {
 
+    /**
+     * @var array Datos del carrito actual en la sesión.
+     */
     public $cart;
+
+    /**
+     * @var array Detalles del carrito que incluyen información detallada de los productos.
+     */
     public $cart_details;
+
+    /**
+     * @var Sneaker Modelo para gestionar las operaciones relacionadas con zapatillas.
+     */
     public $sneaker;
+
+    /**
+     * @var Size Modelo para gestionar las operaciones relacionadas con tallas.
+     */
     public $size;
+
+    /**
+     * @var float Total acumulado del carrito.
+     */
     public $total = 0;
 
     /**
-     * Create a new component instance.
+     * Constructor que inicializa las instancias de los modelos y los datos del carrito.
      */
     public function __construct()
     {
@@ -53,7 +75,8 @@ class cart extends Component
     }
 
     /**
-     * Get the view / contents that represent the component.
+     * Renderiza el componente.
+     * @return View|Closure|string
      */
     public function render(): View|Closure|string
     {

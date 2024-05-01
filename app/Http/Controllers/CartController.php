@@ -7,13 +7,25 @@ use App\Models\Cart;
 use App\Models\Size;
 use App\Models\Token;
 
+/**
+ * Controlador CartController para manejar todas las operaciones del carrito de compras.
+ */
 class CartController extends Controller
 {
+    /**
+     * Constructor que inicia sesión.
+     */
     public function __construct()
     {
         session_start(); 
     }
 
+    /**
+     * Obtiene el carrito actual.
+     *
+     * @param Request $request Datos de la solicitud.
+     * @return \Illuminate\Http\JsonResponse El carrito actual.
+     */
     public function getCart(Request $request)
     {
         $token = $_SESSION['token'] ?? null;
@@ -29,6 +41,12 @@ class CartController extends Controller
         return response()->json($cart);
     }
 
+    /**
+     * Añade un producto al carrito.
+     *
+     * @param Request $request Datos de la solicitud.
+     * @return \Illuminate\Http\JsonResponse Mensaje de confirmación.
+     */
     public function addCart(Request $request)
     {
         $request->validate([
@@ -68,6 +86,12 @@ class CartController extends Controller
         ]);
     }
 
+    /**
+     * Actualiza el carrito.
+     *
+     * @param Request $request Datos de la solicitud.
+     * @return \Illuminate\Http\JsonResponse Mensaje de confirmación.
+     */
     public function updateCart(Request $request)
     {
         $token = $_SESSION['token'] ?? null;
@@ -88,6 +112,12 @@ class CartController extends Controller
         ]);
     }
     
+    /**
+     * Elimina un producto del carrito.
+     *
+     * @param Request $request Datos de la solicitud.
+     * @return \Illuminate\Http\JsonResponse Mensaje de confirmación.
+     */
     public function removeCart(Request $request)
     {
         $token = $_SESSION['token'] ?? null;
@@ -115,6 +145,12 @@ class CartController extends Controller
         ]);
     }
 
+    /**
+     * Limpia el carrito.
+     *
+     * @param Request $request Datos de la solicitud.
+     * @return \Illuminate\Http\JsonResponse Mensaje de confirmación.
+     */
     public function clearCart(Request $request)
     {
         $token = $_SESSION['token'] ?? null;
@@ -132,6 +168,12 @@ class CartController extends Controller
         ]);
     }
 
+    /**
+     * Realiza el proceso de checkout.
+     *
+     * @param Request $request Datos de la solicitud.
+     * @return \Illuminate\Http\JsonResponse El carrito actual.
+     */
     public function checkout(Request $request)
     {
         $token = $_SESSION['token'] ?? null;
@@ -147,6 +189,11 @@ class CartController extends Controller
         return response()->json($cart);
     }
 
+    /**
+     * Completa el proceso de checkout.
+     *
+     * @return \Illuminate\Http\JsonResponse Mensaje de confirmación.
+     */
     public function completed()
     {
         $token = $_SESSION['token'] ?? null;

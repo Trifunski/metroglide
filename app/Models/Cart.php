@@ -6,20 +6,37 @@ use App\Models\Database;
 use App\Models\Sneaker;
 use App\Models\Size;
 
+/**
+ * Modelo Cart para gestionar las operaciones del carrito de compras.
+ */
 class Cart
 {
+    /**
+     * @var Database Instancia de la base de datos.
+     */
     private $db;
 
+    /**
+     * Constructor que inicializa la instancia de la base de datos.
+     */
     function __construct()
     {
         $this->db = new Database();
     }
 
+    /**
+     * Retorna el carrito actual de la sesión.
+     * @return array El carrito de la sesión actual.
+     */
     public static function getCart()
     {
         return $_SESSION['cart'] ?? [];
     }
 
+    /**
+     * Realiza el proceso de pago del carrito actual, calculando totales y devolviendo detalles.
+     * @return array Detalles del carrito incluyendo productos, tallas y total.
+     */
     public static function checkout() 
     {
         $cart = self::getCart();
@@ -57,6 +74,14 @@ class Cart
         ];
     }
 
+    /**
+     * Agrega un producto al carrito de la sesión.
+     * @param int $product_id ID del producto.
+     * @param int $user_id ID del usuario.
+     * @param int $size_id ID de la talla.
+     * @param int $quantity Cantidad del producto.
+     * @param float $price Precio del producto.
+     */
     public static function addCart($product_id, $user_id, $size_id, $quantity, $price)
     {
         if (!isset($_SESSION['cart'])) {
@@ -81,6 +106,12 @@ class Cart
         $_SESSION['cart'] = $cart;
     }
 
+    /**
+     * Elimina un producto del carrito de la sesión.
+     * @param int $product_id ID del producto.
+     * @param int $size_id ID de la talla.
+     * @param int $quantity Cantidad del producto.
+     */
     public static function removeCart($product_id, $size_id, $quantity)
     {
         $cart = $_SESSION['cart'];
@@ -97,6 +128,11 @@ class Cart
         $_SESSION['cart'] = $cart;
     }
 
+    /**
+     * Actualiza la cantidad de un producto en el carrito de la sesión.
+     * @param int $product_id ID del producto.
+     * @param int $quantity Cantidad del producto.
+     */
     public static function updateCart($product_id, $quantity)
     {
         $cart = $_SESSION['cart'];
@@ -108,11 +144,17 @@ class Cart
         $_SESSION['cart'] = $cart;
     }
 
+    /**
+     * Limpia el carrito de la sesión.
+     */
     public static function clearCart()
     {
         unset($_SESSION['cart']);
     }
 
+    /**
+     * Guarda el carrito actual en la base de datos.
+     */
     public function saveCartToDatabase()
     {
         $cart = $_SESSION['cart'] ?? [];
@@ -143,6 +185,11 @@ class Cart
         }
     }
 
+    /**
+     * Obtiene el carrito de la base de datos para un usuario específico.
+     * @param int $userId ID del usuario.
+     * @return array El carrito de la base de datos.
+     */
     public function getCartFromDatabase($userId)
     {
         $sql = "SELECT cd.* FROM Cart_Details cd JOIN (SELECT Cart_ID FROM Carts WHERE User_ID = ? ORDER BY Cart_Created_At DESC LIMIT 1) AS last_cart ON cd.Cart_ID = last_cart.Cart_ID";
@@ -152,6 +199,10 @@ class Cart
         return $cart;
     }
 
+    /**
+     * Guarda el carrito de la base de datos en la sesión.
+     * @param array $cart El carrito de la base de datos.
+     */
     public static function saveCheckoutToDatabase($userId)
     {
         $cart = $_SESSION['cart'];

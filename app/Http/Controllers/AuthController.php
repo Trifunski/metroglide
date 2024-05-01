@@ -7,12 +7,30 @@ use App\Models\User;
 use App\Models\Cart;
 use App\Models\Token;
 
+/**
+ * Clase AuthController
+ * Gestiona la autenticación de los usuarios.
+ */
 class AuthController extends Controller
 {
+    /**
+     * @var User Instancia del modelo User.
+     */
     private $user;
+
+    /**
+     * @var Token Instancia del modelo Token.
+     */
     private $token;
+
+    /**
+     * @var Cart Instancia del modelo Cart.
+     */
     private $cart;
 
+    /**
+     * Constructor de la clase.
+     */
     public function __construct()
     {
         $this->user = new User();
@@ -20,6 +38,12 @@ class AuthController extends Controller
         $this->cart = new Cart();
     }
 
+    /**
+     * Valida los datos de login proporcionados por el usuario.
+     *
+     * @param Request $request Datos de la solicitud.
+     * @return array Lista de errores de validación.
+     */
     private function validateLogin(Request $request)
     {
         $errors = [];
@@ -51,6 +75,12 @@ class AuthController extends Controller
         return $errors;
     }
 
+    /**
+     * Realiza el proceso de login de un usuario.
+     *
+     * @param Request $request Datos de la solicitud.
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function login(Request $request)
     {
         session_destroy();
@@ -77,6 +107,11 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * Carga el carrito de compras del usuario en la sesión.
+     *
+     * @param int $userId ID del usuario.
+     */
     public function loadUserCartIntoSession($userId)
     {
         $cart = $this->cart->getCartFromDatabase($userId);
@@ -97,6 +132,11 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * Cierra la sesión del usuario.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function logout()
     {
         $this->cart->saveCartToDatabase();
