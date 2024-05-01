@@ -173,7 +173,7 @@ class Cart
                 $product = $sneaker->show($item['product_id']);
                 $sizeDetail = $size->getSizeById($item['size_id']);
 
-                $sqlInsertDetails = "INSERT INTO Cart_details (Cart_ID, Sneaker_ID, Size_ID, Cart_Quantity, Price_Per_Unit) VALUES (?, ?, ?, ?, ?)";
+                $sqlInsertDetails = "INSERT INTO Cart_Details (Cart_ID, Sneaker_ID, Size_ID, Cart_Quantity, Price_Per_Unit) VALUES (?, ?, ?, ?, ?)";
                 $this->db->execute($sqlInsertDetails, [
                     $cartId,
                     $item['product_id'],
@@ -220,7 +220,7 @@ class Cart
             $db->execute($sqlInsertOrder, [$userId, $createdAt, $total]);
             $orderId = $db->lastInsertId();
 
-            $sqlInsertOrderDetails = "INSERT INTO Order_details (Order_ID, Sneaker_ID, Size_ID, Order_Quantity, Price_Per_Unit) VALUES (?, ?, ?, ?, ?)";
+            $sqlInsertOrderDetails = "INSERT INTO Order_Details (Order_ID, Sneaker_ID, Size_ID, Order_Quantity, Price_Per_Unit) VALUES (?, ?, ?, ?, ?)";
 
             foreach ($cart as $item) {
                 $db->execute($sqlInsertOrderDetails, [
