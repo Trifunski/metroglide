@@ -14,8 +14,9 @@ class SneakersController extends Controller
 
     public function __construct()
     {       
-        $this->token = session()->get('token');
         $this->sneaker = new Sneaker();
+        session_start(); // Iniciar sesión PHP
+        $this->token = $_SESSION['token'] ?? null; // Usar la superglobal $_SESSION
     }
 
     public function index()

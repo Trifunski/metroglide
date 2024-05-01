@@ -15,7 +15,8 @@ class BrandsController extends Controller
     public function __construct()
     {
         $this->brand = new Brand();
-        $this->token = session()->get('token');
+        session_start(); // Asegurar que la sesión está iniciada
+        $this->token = $_SESSION['token'] ?? null; // Uso de la superglobal $_SESSION
     }
 
     public function index()
@@ -30,11 +31,10 @@ class BrandsController extends Controller
 
     public function store(Request $request)
     {
-
         if (Token::checkToken($this->token) === false) {
             return response()->json([
                 'message' => 'Please log in to add brands'
-            ]);
+            ], 401); // Indicar también el código de estado HTTP adecuado
         }
 
         $data = $request->all();
@@ -43,11 +43,10 @@ class BrandsController extends Controller
 
     public function update(Request $request, $id)
     {
-
         if (Token::checkToken($this->token) === false) {
             return response()->json([
                 'message' => 'Please log in to update brands'
-            ]);
+            ], 401); // Indicar también el código de estado HTTP adecuado
         }
 
         $data = $request->all();
@@ -57,11 +56,10 @@ class BrandsController extends Controller
 
     public function destroy($id)
     {
-
         if (Token::checkToken($this->token) === false) {
             return response()->json([
                 'message' => 'Please log in to delete brands'
-            ]);
+            ], 401); // Indicar también el código de estado HTTP adecuado
         }
 
         return response()->json($this->brand->deleteBrand($id));

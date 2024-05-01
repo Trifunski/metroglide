@@ -15,7 +15,8 @@ class SizesController extends Controller
     public function __construct()
     {
         $this->size = new Size();
-        $this->token = session()->get('token');
+        session_start(); // Iniciar sesión PHP
+        $this->token = $_SESSION['token'] ?? null; // Usar la superglobal $_SESSION
     }
 
     public function index()
