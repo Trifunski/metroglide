@@ -5,7 +5,6 @@ namespace App\View\Components;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
-use App\Models\Cart as CartModel;
 use App\Models\Sneaker;
 use App\Models\Size;
 
