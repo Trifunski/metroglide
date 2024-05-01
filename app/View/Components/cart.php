@@ -79,6 +79,6 @@ class Cart extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.cart')->with('cart_details', $this->cart_details);
+        return view('components.cart', ['cart_details' => $this->cart_details]);
     }
 }
