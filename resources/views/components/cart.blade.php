@@ -1,7 +1,5 @@
 <div id="cartContainer" class="container mx-auto shadow-lg my-8 p-6 rounded-lg flex justify-center">
 
-    @dd($cart_details)
-
     @if (count($cart_details) == 0 || count($cart_details) == null)
         <div class="text-center text-white">
             <h1 class="text-2xl font-semibold">Your cart is empty</h1>
