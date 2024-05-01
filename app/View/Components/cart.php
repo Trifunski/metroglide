@@ -46,8 +46,6 @@ class Cart extends Component
     public function __construct()
     {
 
-        dd($this->cart_details);
-
         $this->cart = $_SESSION['cart'] ?? [];
         $this->cart_details = [];
         $this->sneaker = new Sneaker();
