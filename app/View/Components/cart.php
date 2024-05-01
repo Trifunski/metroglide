@@ -80,6 +80,6 @@ class Cart extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.cart')->with('cart_details', $this->cart_details)->with('total', $this->total);
+        return view('components.cart')->with('cart_details', $this->cart_details);
     }
 }
